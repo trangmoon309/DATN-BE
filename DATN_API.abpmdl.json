@@ -1,0 +1,111 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {},
+      "host": {}
+    }
+  },
+  "packages": {
+    "DATN_API.Domain.Shared": {
+      "path": "src/DATN_API.Domain.Shared/DATN_API.Domain.Shared.abppkg.json",
+      "folder": "src"
+    },
+    "DATN_API.Domain": {
+      "path": "src/DATN_API.Domain/DATN_API.Domain.abppkg.json",
+      "folder": "src"
+    },
+    "DATN_API.Application.Contracts": {
+      "path": "src/DATN_API.Application.Contracts/DATN_API.Application.Contracts.abppkg.json",
+      "folder": "src"
+    },
+    "DATN_API.Application": {
+      "path": "src/DATN_API.Application/DATN_API.Application.abppkg.json",
+      "folder": "src"
+    },
+    "DATN_API.EntityFrameworkCore": {
+      "path": "src/DATN_API.EntityFrameworkCore/DATN_API.EntityFrameworkCore.abppkg.json",
+      "folder": "src"
+    },
+    "DATN_API.MongoDB": {
+      "path": "src/DATN_API.MongoDB/DATN_API.MongoDB.abppkg.json",
+      "folder": "src"
+    },
+    "DATN_API.HttpApi": {
+      "path": "src/DATN_API.HttpApi/DATN_API.HttpApi.abppkg.json",
+      "folder": "src"
+    },
+    "DATN_API.HttpApi.Client": {
+      "path": "src/DATN_API.HttpApi.Client/DATN_API.HttpApi.Client.abppkg.json",
+      "folder": "src"
+    },
+    "DATN_API.TestBase": {
+      "path": "test/DATN_API.TestBase/DATN_API.TestBase.abppkg.json",
+      "folder": "test"
+    },
+    "DATN_API.EntityFrameworkCore.Tests": {
+      "path": "test/DATN_API.EntityFrameworkCore.Tests/DATN_API.EntityFrameworkCore.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "DATN_API.MongoDB.Tests": {
+      "path": "test/DATN_API.MongoDB.Tests/DATN_API.MongoDB.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "DATN_API.Domain.Tests": {
+      "path": "test/DATN_API.Domain.Tests/DATN_API.Domain.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "DATN_API.Application.Tests": {
+      "path": "test/DATN_API.Application.Tests/DATN_API.Application.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "DATN_API.HttpApi.Host": {
+      "path": "host/DATN_API.HttpApi.Host/DATN_API.HttpApi.Host.abppkg.json",
+      "folder": "host"
+    },
+    "DATN_API.Web": {
+      "path": "src/DATN_API.Web/DATN_API.Web.abppkg.json",
+      "folder": "src"
+    },
+    "DATN_API.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/DATN_API.HttpApi.Client.ConsoleTestApp/DATN_API.HttpApi.Client.ConsoleTestApp.abppkg.json",
+      "folder": "test"
+    },
+    "DATN_API.Web.Host": {
+      "path": "host/DATN_API.Web.Host/DATN_API.Web.Host.abppkg.json",
+      "folder": "host"
+    },
+    "DATN_API.IdentityServer": {
+      "path": "host/DATN_API.IdentityServer/DATN_API.IdentityServer.abppkg.json",
+      "folder": "host"
+    },
+    "DATN_API.Host.Shared": {
+      "path": "host/DATN_API.Host.Shared/DATN_API.Host.Shared.abppkg.json",
+      "folder": "host"
+    },
+    "DATN_API.Web.Unified": {
+      "path": "host/DATN_API.Web.Unified/DATN_API.Web.Unified.abppkg.json",
+      "folder": "host"
+    },
+    "DATN_API.Blazor": {
+      "path": "src/DATN_API.Blazor/DATN_API.Blazor.abppkg.json",
+      "folder": "src"
+    },
+    "DATN_API.Blazor.Host": {
+      "path": "host/DATN_API.Blazor.Host/DATN_API.Blazor.Host.abppkg.json",
+      "folder": "host"
+    },
+    "DATN_API.Blazor.Server": {
+      "path": "src/DATN_API.Blazor.Server/DATN_API.Blazor.Server.abppkg.json",
+      "folder": "src"
+    },
+    "DATN_API.Blazor.WebAssembly": {
+      "path": "src/DATN_API.Blazor.WebAssembly/DATN_API.Blazor.WebAssembly.abppkg.json",
+      "folder": "src"
+    },
+    "DATN_API.Blazor.Server.Host": {
+      "path": "host/DATN_API.Blazor.Server.Host/DATN_API.Blazor.Server.Host.abppkg.json",
+      "folder": "host"
+    }
+  }
+}

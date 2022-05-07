@@ -1,0 +1,7 @@
+{
+  "modules": {
+    "DATN_API": {
+      "path": "DATN_API.abpmdl.json"
+    }
+  }
+}
