@@ -1,0 +1,79 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {},
+      "host": {}
+    }
+  },
+  "packages": {
+    "Datn.ApiManagement.Domain.Shared": {
+      "path": "src/Datn.ApiManagement.Domain.Shared/Datn.ApiManagement.Domain.Shared.abppkg.json",
+      "folder": "src"
+    },
+    "Datn.ApiManagement.Domain": {
+      "path": "src/Datn.ApiManagement.Domain/Datn.ApiManagement.Domain.abppkg.json",
+      "folder": "src"
+    },
+    "Datn.ApiManagement.Application.Contracts": {
+      "path": "src/Datn.ApiManagement.Application.Contracts/Datn.ApiManagement.Application.Contracts.abppkg.json",
+      "folder": "src"
+    },
+    "Datn.ApiManagement.Application": {
+      "path": "src/Datn.ApiManagement.Application/Datn.ApiManagement.Application.abppkg.json",
+      "folder": "src"
+    },
+    "Datn.ApiManagement.EntityFrameworkCore": {
+      "path": "src/Datn.ApiManagement.EntityFrameworkCore/Datn.ApiManagement.EntityFrameworkCore.abppkg.json",
+      "folder": "src"
+    },
+    "Datn.ApiManagement.MongoDB": {
+      "path": "src/Datn.ApiManagement.MongoDB/Datn.ApiManagement.MongoDB.abppkg.json",
+      "folder": "src"
+    },
+    "Datn.ApiManagement.HttpApi": {
+      "path": "src/Datn.ApiManagement.HttpApi/Datn.ApiManagement.HttpApi.abppkg.json",
+      "folder": "src"
+    },
+    "Datn.ApiManagement.HttpApi.Client": {
+      "path": "src/Datn.ApiManagement.HttpApi.Client/Datn.ApiManagement.HttpApi.Client.abppkg.json",
+      "folder": "src"
+    },
+    "Datn.ApiManagement.TestBase": {
+      "path": "test/Datn.ApiManagement.TestBase/Datn.ApiManagement.TestBase.abppkg.json",
+      "folder": "test"
+    },
+    "Datn.ApiManagement.EntityFrameworkCore.Tests": {
+      "path": "test/Datn.ApiManagement.EntityFrameworkCore.Tests/Datn.ApiManagement.EntityFrameworkCore.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "Datn.ApiManagement.MongoDB.Tests": {
+      "path": "test/Datn.ApiManagement.MongoDB.Tests/Datn.ApiManagement.MongoDB.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "Datn.ApiManagement.Domain.Tests": {
+      "path": "test/Datn.ApiManagement.Domain.Tests/Datn.ApiManagement.Domain.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "Datn.ApiManagement.Application.Tests": {
+      "path": "test/Datn.ApiManagement.Application.Tests/Datn.ApiManagement.Application.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "Datn.ApiManagement.HttpApi.Host": {
+      "path": "host/Datn.ApiManagement.HttpApi.Host/Datn.ApiManagement.HttpApi.Host.abppkg.json",
+      "folder": "host"
+    },
+    "Datn.ApiManagement.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/Datn.ApiManagement.HttpApi.Client.ConsoleTestApp/Datn.ApiManagement.HttpApi.Client.ConsoleTestApp.abppkg.json",
+      "folder": "test"
+    },
+    "Datn.ApiManagement.IdentityServer": {
+      "path": "host/Datn.ApiManagement.IdentityServer/Datn.ApiManagement.IdentityServer.abppkg.json",
+      "folder": "host"
+    },
+    "Datn.ApiManagement.Host.Shared": {
+      "path": "host/Datn.ApiManagement.Host.Shared/Datn.ApiManagement.Host.Shared.abppkg.json",
+      "folder": "host"
+    }
+  }
+}

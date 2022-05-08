@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Datn.ApiManagement</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="5.2.1" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="5.2.1" />
+    <ProjectReference Include="..\Datn.ApiManagement.Application.Contracts\Datn.ApiManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Datn.ApiManagement.Domain\Datn.ApiManagement.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

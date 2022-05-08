@@ -1,0 +1,7 @@
+{
+  "modules": {
+    "Datn.ApiManagement": {
+      "path": "Datn.ApiManagement.abpmdl.json"
+    }
+  }
+}
