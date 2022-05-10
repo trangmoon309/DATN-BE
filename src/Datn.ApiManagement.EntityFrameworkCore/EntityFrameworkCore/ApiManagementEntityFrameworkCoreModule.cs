@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Datn.ApiManagement.Entities;
+using Datn.ApiManagement.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Modularity;
 
@@ -14,9 +16,19 @@ public class ApiManagementEntityFrameworkCoreModule : AbpModule
     {
         context.Services.AddAbpDbContext<ApiManagementDbContext>(options =>
         {
-                /* Add custom repositories here. Example:
-                 * options.AddRepository<Question, EfCoreQuestionRepository>();
-                 */
+            options.AddRepository<VehicleType, VehicleTypeRepository>();
+            options.AddRepository<VehicleTypeDetail, VehicleTypeDetailRepository>();
+
+            options.AddRepository<VehicleLine, VehicleLineRepository>();
+
+            options.AddRepository<Vehicle, VehicleRepository>();
+            options.AddRepository<VehicleProperty, VehiclePropertyRepository>();
+
+            options.AddRepository<UserCart, UserCartRepository>();
+            options.AddRepository<UserFavoriteVehicle, UserFavoriteVehicleRepository>();
+
+            options.AddRepository<UserTransaction, UserTransactionRepository>();
+            options.AddRepository<UserTransactionVehicle, UserTransactionVehicleRepository>();
         });
     }
 }
