@@ -61,7 +61,6 @@ namespace Datn.ApiManagement;
     typeof(AbpAspNetCoreMvcUiBasicThemeModule),
     typeof(AbpAuditLoggingEntityFrameworkCoreModule),
     typeof(AbpAutofacModule),
-    typeof(AbpCachingStackExchangeRedisModule),
     typeof(AbpEntityFrameworkCorePostgreSqlModule),
     typeof(AbpIdentityEntityFrameworkCoreModule),
     typeof(AbpIdentityApplicationModule),
@@ -158,11 +157,6 @@ public class ApiManagementIdentityServerModule : AbpModule
         });
 
         var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("ApiManagement");
-        if (!hostingEnvironment.IsDevelopment())
-        {
-            var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
-            dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "ApiManagement-Protection-Keys");
-        }
 
         context.Services.AddCors(options =>
         {
