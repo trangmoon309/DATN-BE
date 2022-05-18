@@ -1,19 +1,27 @@
 ﻿using Datn.ApiManagement.Entities;
 using Datn.ApiManagement.Repositories;
 using Microsoft.Extensions.DependencyInjection;
+using PBL6.Hreo.Repository;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.Identity.EntityFrameworkCore;
 using Volo.Abp.Modularity;
 
 namespace Datn.ApiManagement.EntityFrameworkCore;
 
 [DependsOn(
     typeof(ApiManagementDomainModule),
-    typeof(AbpEntityFrameworkCoreModule)
+    typeof(AbpEntityFrameworkCoreModule),
+    typeof(AbpIdentityEntityFrameworkCoreModule)
 )]
 public class ApiManagementEntityFrameworkCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        context.Services.AddAbpDbContext<ApiManagementIdentityDbContext>(options =>
+        {
+            options.AddRepository<User, UserRepository>();
+        });
+
         context.Services.AddAbpDbContext<ApiManagementDbContext>(options =>
         {
             options.AddRepository<VehicleType, VehicleTypeRepository>();

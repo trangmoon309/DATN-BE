@@ -1,5 +1,6 @@
 ﻿using Datn.ApiManagement.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
@@ -8,9 +9,17 @@ namespace Datn.ApiManagement.EntityFrameworkCore;
 public static class ApiManagementDbContextModelCreatingExtensions
 {
     public static void ConfigureApiManagement(
-        this ModelBuilder builder)
+            this ModelBuilder builder,
+            Action<ApiManagementModelBuilderConfigurationOptions> optionsAction = null)
     {
         Check.NotNull(builder, nameof(builder));
+
+        var options = new ApiManagementModelBuilderConfigurationOptions(
+            ApiManagementDbProperties.DbTablePrefix,
+            ApiManagementDbProperties.DbSchema
+        );
+
+        optionsAction?.Invoke(options);
 
         builder.Entity<VehicleType>(b =>
         {

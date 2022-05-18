@@ -4,12 +4,14 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Microsoft.Extensions.DependencyInjection;
+using Volo.Abp.Identity;
 
 namespace Datn.ApiManagement;
 
 [DependsOn(
     typeof(ApiManagementApplicationContractsModule),
-    typeof(AbpAspNetCoreMvcModule))]
+    typeof(AbpAspNetCoreMvcModule),
+    typeof(AbpIdentityHttpApiModule))]
 public class ApiManagementHttpApiModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)

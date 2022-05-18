@@ -2,6 +2,8 @@
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.Application;
+using Volo.Abp.Identity;
+using Datn.ApiManagement.Services;
 
 namespace Datn.ApiManagement;
 
@@ -9,7 +11,8 @@ namespace Datn.ApiManagement;
     typeof(ApiManagementDomainModule),
     typeof(ApiManagementApplicationContractsModule),
     typeof(AbpDddApplicationModule),
-    typeof(AbpAutoMapperModule)
+    typeof(AbpAutoMapperModule),
+    typeof(AbpIdentityApplicationModule)
     )]
 public class ApiManagementApplicationModule : AbpModule
 {
@@ -20,5 +23,6 @@ public class ApiManagementApplicationModule : AbpModule
         {
             options.AddMaps<ApiManagementApplicationModule>(validate: true);
         });
+
     }
 }

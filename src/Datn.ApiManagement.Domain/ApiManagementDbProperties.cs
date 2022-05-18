@@ -7,4 +7,6 @@ public static class ApiManagementDbProperties
     public static string DbSchema { get; set; } = null;
 
     public const string ConnectionStringName = "ApiManagement";
+
+    public const string IdentityConnectionStringName = "Default";
 }

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Ddd.Domain" Version="5.2.1" />
+    <PackageReference Include="Volo.Abp.Identity.Domain" Version="5.2.0" />
     <ProjectReference Include="..\Datn.ApiManagement.Domain.Shared\Datn.ApiManagement.Domain.Shared.csproj" />
   </ItemGroup>
 
