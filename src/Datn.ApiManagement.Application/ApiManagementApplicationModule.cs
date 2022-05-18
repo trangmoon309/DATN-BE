@@ -4,6 +4,8 @@ using Volo.Abp.Modularity;
 using Volo.Abp.Application;
 using Volo.Abp.Identity;
 using Datn.ApiManagement.Services;
+using Volo.Abp.BlobStoring;
+using Volo.Abp.BlobStoring.FileSystem;
 
 namespace Datn.ApiManagement;
 
@@ -12,7 +14,8 @@ namespace Datn.ApiManagement;
     typeof(ApiManagementApplicationContractsModule),
     typeof(AbpDddApplicationModule),
     typeof(AbpAutoMapperModule),
-    typeof(AbpIdentityApplicationModule)
+    typeof(AbpIdentityApplicationModule),
+    typeof(AbpBlobStoringFileSystemModule)
     )]
 public class ApiManagementApplicationModule : AbpModule
 {
@@ -24,5 +27,15 @@ public class ApiManagementApplicationModule : AbpModule
             options.AddMaps<ApiManagementApplicationModule>(validate: true);
         });
 
+        Configure<AbpBlobStoringOptions>(options =>
+        {
+            options.Containers.ConfigureDefault(container =>
+            {
+                container.UseFileSystem(fileSystem =>
+                {
+                    fileSystem.BasePath = "D:\\Selflearning\\DATN\\files";
+                });
+            });
+        });
     }
 }

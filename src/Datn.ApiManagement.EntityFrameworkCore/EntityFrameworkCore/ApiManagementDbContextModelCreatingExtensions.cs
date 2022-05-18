@@ -21,6 +21,12 @@ public static class ApiManagementDbContextModelCreatingExtensions
 
         optionsAction?.Invoke(options);
 
+        builder.Entity<FileInformation>(b =>
+        {
+            b.ToTable("FileInformations", "files");
+            b.ConfigureByConvention();
+        });
+
         builder.Entity<VehicleType>(b =>
         {
             b.ToTable("VehicleTypes", "vehicleType");

@@ -11,6 +11,9 @@ public class ApiManagementDbContext : AbpDbContext<ApiManagementDbContext>, IApi
     /* Add DbSet for each Aggregate Root here. Example:
      * public DbSet<Question> Questions { get; set; }
      */
+
+    public DbSet<FileInformation> FileInformations { get; set; }
+
     public DbSet<VehicleLine> VehicleLines { get; set; }
 
     public DbSet<VehicleType> VehicleTypes { get; set; }

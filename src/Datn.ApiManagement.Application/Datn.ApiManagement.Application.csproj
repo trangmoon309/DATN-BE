@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
     <PackageReference Include="Volo.Abp.AutoMapper" Version="5.2.1" />
+    <PackageReference Include="Volo.Abp.BlobStoring.FileSystem" Version="5.2.0" />
     <PackageReference Include="Volo.Abp.Ddd.Application" Version="5.2.1" />
     <PackageReference Include="Volo.Abp.Identity.Application" Version="5.2.0" />
     <ProjectReference Include="..\Datn.ApiManagement.Application.Contracts\Datn.ApiManagement.Application.Contracts.csproj" />

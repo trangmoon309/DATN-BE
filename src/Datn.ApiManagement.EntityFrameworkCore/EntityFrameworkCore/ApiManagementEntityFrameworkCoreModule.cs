@@ -24,6 +24,8 @@ public class ApiManagementEntityFrameworkCoreModule : AbpModule
 
         context.Services.AddAbpDbContext<ApiManagementDbContext>(options =>
         {
+            options.AddRepository<FileInformation, FileInformationRepository>();
+
             options.AddRepository<VehicleType, VehicleTypeRepository>();
             options.AddRepository<VehicleTypeDetail, VehicleTypeDetailRepository>();
 

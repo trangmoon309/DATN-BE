@@ -11,6 +11,7 @@ public interface IApiManagementDbContext : IEfCoreDbContext
     /* Add DbSet for each Aggregate Root here. Example:
      * DbSet<Question> Questions { get; }
      */
+    DbSet<FileInformation> FileInformations { get; set; }
 
     DbSet<VehicleLine> VehicleLines { get; set; }
 
