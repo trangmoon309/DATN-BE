@@ -24,6 +24,8 @@ namespace Datn.ApiManagement.Entities
 
         public CostStatus CostStatus { get; set; }
 
-        public RentalStatus RentalStatus { get; set; } 
+        public RentalStatus RentalStatus { get; set; }
+
+        public List<UserTransactionVehicle>  UserTransactionVehicles { get; set; }
     }
 }

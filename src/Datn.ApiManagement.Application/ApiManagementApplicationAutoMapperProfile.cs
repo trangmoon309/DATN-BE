@@ -51,17 +51,21 @@ public class ApiManagementApplicationAutoMapperProfile : Profile
 
         CreateMap<Vehicle, VehicleResponse>(MemberList.None);
         CreateMap<VehicleRequest, Vehicle>(MemberList.None);
+        CreateMap<UpdateVehicleRequest, Vehicle>(MemberList.None);
 
         CreateMap<VehicleProperty, VehiclePropertyResponse>(MemberList.None);
         CreateMap<VehiclePropertyRequest, VehicleProperty>(MemberList.None);
+        CreateMap<UpdateVehiclePropertyRequest, VehicleProperty>(MemberList.None);
 
         CreateMap<VehicleLine, VehicleLineResponse>(MemberList.None);
         CreateMap<VehicleLineRequest, VehicleLine>(MemberList.None);
 
         CreateMap<VehicleType, VehicleTypeResponse>(MemberList.None);
         CreateMap<VehicleTypeRequest, VehicleType>(MemberList.None);
+        CreateMap<UpdateVehicleTypeRequest, VehicleType>(MemberList.None);
 
         CreateMap<VehicleTypeDetail, VehicleTypeDetailResponse>(MemberList.None);
         CreateMap<VehicleTypeDetailRequest, VehicleTypeDetail>(MemberList.None);
+        CreateMap<UpdateVehicleTypeDetailRequest, VehicleTypeDetail>(MemberList.None);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Datn.ApiManagement.Entities;
 using Datn.ApiManagement.EntityFrameworkCore;
 using Datn.ApiManagement.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,10 @@ public class UserCartRepository : EfCoreRepository<IApiManagementDbContext, User
 {
     public UserCartRepository(IDbContextProvider<IApiManagementDbContext> dbContextProvider) : base(dbContextProvider)
     {
+    }
+
+    public IQueryable<UserCart> GetList()
+    {
+        return GetQueryable().Include(x => x.Vehicle);
     }
 }

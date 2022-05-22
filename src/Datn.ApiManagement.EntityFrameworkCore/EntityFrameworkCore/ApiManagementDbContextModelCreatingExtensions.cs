@@ -51,6 +51,12 @@ public static class ApiManagementDbContextModelCreatingExtensions
             b.ConfigureByConvention();
         });
 
+        builder.Entity<VehicleImage>(b =>
+        {
+            b.ToTable("VehicleImages", "vehicle");
+            b.ConfigureByConvention();
+        });
+
         builder.Entity<VehicleProperty>(b =>
         {
             b.ToTable("VehicleProperties", "vehicle");

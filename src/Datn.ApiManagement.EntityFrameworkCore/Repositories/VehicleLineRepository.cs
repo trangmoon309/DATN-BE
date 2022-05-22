@@ -15,5 +15,21 @@ namespace Datn.ApiManagement.Repositories
         public VehicleLineRepository(IDbContextProvider<IApiManagementDbContext> dbContextProvider) : base(dbContextProvider)
         {
         }
+        public IQueryable<VehicleLine> SearchKeyWord(IQueryable<VehicleLine> query, string keyWord)
+        {
+            query = query.Where(x => (x.Name.ToLower().Contains(keyWord.ToLower())
+                                || x.Code.ToLower().Contains(keyWord.ToLower())) && !x.IsDeleted);
+            return query;
+        }
+
+        public IQueryable<VehicleLine> GetList()
+        {
+            return GetQueryable();
+        }
+
+        public IQueryable<VehicleLine> GetById(Guid id)
+        {
+            return GetQueryable().Where(x => !x.IsDeleted && x.Id == id);
+        }
     }
 }

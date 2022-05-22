@@ -1,6 +1,7 @@
 ﻿using Datn.ApiManagement.Entities;
 using Datn.ApiManagement.EntityFrameworkCore;
 using Datn.ApiManagement.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,4 +15,14 @@ public class UserTransactionRepository : EfCoreRepository<IApiManagementDbContex
     public UserTransactionRepository(IDbContextProvider<IApiManagementDbContext> dbContextProvider) : base(dbContextProvider)
     {
     }
+    public IQueryable<UserTransaction> GetList()
+    {
+        return GetQueryable().Include(x => x.UserTransactionVehicles);
+    }
+
+    public IQueryable<UserTransaction> GetById(Guid id)
+    {
+        return GetQueryable().Where(x => !x.IsDeleted && x.Id == id).Include(x => x.UserTransactionVehicles);
+    }
+
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Datn.ApiManagement.Controllers
 {
@@ -39,9 +40,9 @@ namespace Datn.ApiManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(VehicleRequest request)
+        public async Task<IActionResult> CreateAsync(VehicleRequest request, List<IFormFile> images)
         {
-            var result = await _service.CreateAsync(request);
+            var result = await _service.CreateWithImagesAsync(request, images);
 
             return CreatedAtAction(null, result);
         }

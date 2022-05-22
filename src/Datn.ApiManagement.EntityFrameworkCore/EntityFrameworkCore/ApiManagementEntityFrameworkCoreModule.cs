@@ -32,6 +32,7 @@ public class ApiManagementEntityFrameworkCoreModule : AbpModule
             options.AddRepository<VehicleLine, VehicleLineRepository>();
 
             options.AddRepository<Vehicle, VehicleRepository>();
+            options.AddRepository<VehicleImage, VehicleImageRepository>();
             options.AddRepository<VehicleProperty, VehiclePropertyRepository>();
 
             options.AddRepository<UserCart, UserCartRepository>();

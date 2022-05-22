@@ -12,7 +12,7 @@ namespace Datn.ApiManagement.Services
             Guid,
             PagedAndSortedResultRequestDto,
             VehicleTypeRequest,
-            VehicleTypeRequest>
+            UpdateVehicleTypeRequest>
     {
     }
 }

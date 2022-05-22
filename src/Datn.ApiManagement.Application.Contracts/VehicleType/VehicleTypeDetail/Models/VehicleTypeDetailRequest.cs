@@ -8,4 +8,11 @@ namespace Datn.ApiManagement.Models
     {
         public string Name { get; set; }
     }
+    public class UpdateVehicleTypeDetailRequest
+    {
+        public Guid? Id { get; set; }
+
+        public string Name { get; set; }
+    }
+
 }

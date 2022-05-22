@@ -7,11 +7,15 @@ namespace Datn.ApiManagement.Models
 {
     public class UserTransactionVehicleResponse : FullAuditedEntityDto<Guid>
     {
-        public Guid UserId { get; set; }
+        public Guid UserTransactionId { get; set; }
 
         public Guid VehicleId { get; set; }
 
-        public int Quantity { get; set; }
+        public int ReviewRideQuality { get; set; }
+
+        public int ReviewEngineQuality { get; set; }
+
+        public string ReviewNote { get; set; }
 
         public VehicleResponse Vehicle { get; set; }
     }

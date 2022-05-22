@@ -11,6 +11,8 @@ namespace Datn.ApiManagement.Entities
 
         public Guid VehicleLineId { get; set; }
 
+        public string Name { get; set; }    
+
         public string Code { get; set; }
 
         public string Color { get; set; }
@@ -28,5 +30,7 @@ namespace Datn.ApiManagement.Entities
         public VehicleLine VehicleLine { get; set; }
 
         public List<VehicleProperty> VehicleProperties { get; set; }    
+
+        public List<VehicleImage> VehicleImages { get; set; }
     }
 }

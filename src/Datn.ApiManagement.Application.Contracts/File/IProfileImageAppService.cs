@@ -1,0 +1,18 @@
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using Volo.Abp.Application.Services;
+
+namespace Datn.ApiManagement.Services
+{
+    public interface IProfileImageAppService : IApplicationService
+    {
+        Task SaveProfileImageAsync(List<IFormFile> files);
+
+        Task<byte[]> GetProfileImageByNameAsync(string name);
+
+        Task<byte[]> GetProfileImageByIdAsync(Guid id);
+    }
+}

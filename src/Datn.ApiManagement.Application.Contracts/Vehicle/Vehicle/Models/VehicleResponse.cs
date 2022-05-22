@@ -23,10 +23,14 @@ namespace Datn.ApiManagement.Models
 
         public double DepositPrice { get; set; }
 
+        public Guid ImageUrl { get; set; }
+
         public VehicleTypeResponse VehicleType { get; set; }
 
         public VehicleLineResponse VehicleLine { get; set; }
 
         public List<VehiclePropertyResponse> VehicleProperties { get; set; }
+
+        public List<VehicleImageResponse> VehicleImages { get; set; }
     }
 }

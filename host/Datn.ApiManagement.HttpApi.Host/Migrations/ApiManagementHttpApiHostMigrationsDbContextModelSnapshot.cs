@@ -286,16 +286,24 @@ namespace Datn.ApiManagement.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("LastModifierId");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("ReviewEngineQuality")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<string>("ReviewNote")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ReviewRideQuality")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("UserTransactionId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("VehicleId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserTransactionId");
 
                     b.HasIndex("VehicleId");
 
@@ -363,6 +371,9 @@ namespace Datn.ApiManagement.Migrations
                     b.Property<string>("LicensePlate")
                         .HasColumnType("text");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
                     b.Property<double>("RentalPrice")
                         .HasColumnType("double precision");
 
@@ -379,6 +390,67 @@ namespace Datn.ApiManagement.Migrations
                     b.HasIndex("VehicleTypeId");
 
                     b.ToTable("Vehicles", "vehicle");
+                });
+
+            modelBuilder.Entity("Datn.ApiManagement.Entities.VehicleImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("DeletionTime");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnType("text")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<Guid>("FileInformationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<Guid>("VehicleId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FileInformationId");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("VehicleImages", "vehicle");
                 });
 
             modelBuilder.Entity("Datn.ApiManagement.Entities.VehicleLine", b =>
@@ -605,15 +677,12 @@ namespace Datn.ApiManagement.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<string>("VehicleTypeId")
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("VehicleTypeId1")
+                    b.Property<Guid>("VehicleTypeId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VehicleTypeId1");
+                    b.HasIndex("VehicleTypeId");
 
                     b.ToTable("VehicleTypeDetails", "vehicleType");
                 });
@@ -642,11 +711,19 @@ namespace Datn.ApiManagement.Migrations
 
             modelBuilder.Entity("Datn.ApiManagement.Entities.UserTransactionVehicle", b =>
                 {
+                    b.HasOne("Datn.ApiManagement.Entities.UserTransaction", "UserTransaction")
+                        .WithMany("UserTransactionVehicles")
+                        .HasForeignKey("UserTransactionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Datn.ApiManagement.Entities.Vehicle", "Vehicle")
                         .WithMany()
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("UserTransaction");
 
                     b.Navigation("Vehicle");
                 });
@@ -670,6 +747,25 @@ namespace Datn.ApiManagement.Migrations
                     b.Navigation("VehicleType");
                 });
 
+            modelBuilder.Entity("Datn.ApiManagement.Entities.VehicleImage", b =>
+                {
+                    b.HasOne("Datn.ApiManagement.Entities.FileInformation", "FileInformation")
+                        .WithMany()
+                        .HasForeignKey("FileInformationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Datn.ApiManagement.Entities.Vehicle", "Vehicle")
+                        .WithMany("VehicleImages")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FileInformation");
+
+                    b.Navigation("Vehicle");
+                });
+
             modelBuilder.Entity("Datn.ApiManagement.Entities.VehicleProperty", b =>
                 {
                     b.HasOne("Datn.ApiManagement.Entities.Vehicle", "Vehicle")
@@ -691,13 +787,24 @@ namespace Datn.ApiManagement.Migrations
 
             modelBuilder.Entity("Datn.ApiManagement.Entities.VehicleTypeDetail", b =>
                 {
-                    b.HasOne("Datn.ApiManagement.Entities.VehicleType", null)
+                    b.HasOne("Datn.ApiManagement.Entities.VehicleType", "VehicleType")
                         .WithMany("VehicleTypeDetails")
-                        .HasForeignKey("VehicleTypeId1");
+                        .HasForeignKey("VehicleTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VehicleType");
+                });
+
+            modelBuilder.Entity("Datn.ApiManagement.Entities.UserTransaction", b =>
+                {
+                    b.Navigation("UserTransactionVehicles");
                 });
 
             modelBuilder.Entity("Datn.ApiManagement.Entities.Vehicle", b =>
                 {
+                    b.Navigation("VehicleImages");
+
                     b.Navigation("VehicleProperties");
                 });
 

@@ -2,8 +2,8 @@
 
 namespace Datn.ApiManagement.Services
 {
-    [BlobContainerName("profile-pictures")]
-    public class ProfilePictureContainer
+    [BlobContainerName("profile-images")]
+    public class ProfileImageContainer
     {
 
     }

@@ -24,6 +24,8 @@ public class ApiManagementDbContext : AbpDbContext<ApiManagementDbContext>, IApi
 
     public DbSet<Vehicle> Vehicles { get; set; }
 
+    public DbSet<VehicleImage> VehicleImages { get; set; }
+
     public DbSet<UserCart> UserCarts { get; set; }
 
     public DbSet<UserFavoriteVehicle> UserFavoriteVehicles { get; set; }

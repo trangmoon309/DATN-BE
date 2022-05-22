@@ -23,6 +23,8 @@ public interface IApiManagementDbContext : IEfCoreDbContext
 
     DbSet<Vehicle> Vehicles { get; set; }
 
+    DbSet<VehicleImage> VehicleImages { get; set; }
+
     DbSet<UserCart> UserCarts { get; set; }
 
     DbSet<UserFavoriteVehicle> UserFavoriteVehicles { get; set; }

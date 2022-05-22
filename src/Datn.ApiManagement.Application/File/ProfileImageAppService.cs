@@ -7,22 +7,24 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BlobStoring;
+using Volo.Abp.Content;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Datn.ApiManagement.Services
 {
-    public class ProfileAppService : ApplicationService, IProfileAppService
+    public class ProfileImageAppService : ApplicationService, IProfileImageAppService
     {
-        private readonly IBlobContainer<ProfilePictureContainer> _blobContainer;
+        private readonly IBlobContainer<ProfileImageContainer> _blobContainer;
         private readonly IFileInformationRepository _fileRepository;
 
-        public ProfileAppService(IBlobContainer<ProfilePictureContainer> blobContainer, 
+        public ProfileImageAppService(IBlobContainer<ProfileImageContainer> blobContainer, 
             IFileInformationRepository fileRepository)
         {
             _blobContainer = blobContainer;
             _fileRepository = fileRepository;
         }
 
-        public async Task SaveProfilePictureAsync(List<IFormFile> files)
+        public async Task SaveProfileImageAsync(List<IFormFile> files)
         {
             //var blobName = CurrentUser.GetId().ToString();
             //var output = new List<DocumentDto>();
@@ -33,15 +35,22 @@ namespace Datn.ApiManagement.Services
                 var id = Guid.NewGuid();
                 //var newFile = new Document(id, file.Length, file.ContentType, CurrentTenant.Id);
                 //var created = await _repository.InsertAsync(newFile);
+                
                 await _blobContainer.SaveAsync(id.ToString(), memoryStream.ToArray()).ConfigureAwait(false);
 
                 //output.Add(ObjectMapper.Map<Document, DocumentDto>(newFile));
             }
         }
 
-        public async Task<byte[]> GetProfilePictureAsync(string name)
+        public async Task<byte[]> GetProfileImageByNameAsync(string name)
         {
             var x = await _blobContainer.GetAllBytesOrNullAsync(name);
+            return x;
+        }
+
+        public async Task<byte[]> GetProfileImageByIdAsync(Guid id)
+        {
+            var x = await _blobContainer.GetAllBytesOrNullAsync(id.ToString());
             return x;
         }
     }

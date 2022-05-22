@@ -1,5 +1,6 @@
 ﻿using Datn.ApiManagement.Entities;
 using Datn.ApiManagement.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,13 @@ namespace Datn.ApiManagement.Repositories
     {
         public VehiclePropertyRepository(IDbContextProvider<IApiManagementDbContext> dbContextProvider) : base(dbContextProvider)
         {
+        }
+
+        public IQueryable<VehicleProperty> GetList()
+        {
+            return GetQueryable()
+                .Include(x => x.Vehicle)
+                .Include(x => x.VehicleTypeDetail);
         }
     }
 }

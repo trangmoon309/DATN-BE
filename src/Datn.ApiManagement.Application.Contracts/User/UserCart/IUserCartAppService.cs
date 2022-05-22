@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -14,5 +15,6 @@ namespace Datn.ApiManagement.Services
             UserCartRequest,
             UserCartRequest>
     {
+        Task<PagedResultDto<UserCartResponse>> GetByUserPagedListAsync(Guid userId, PagedAndSortedResultRequestDto pageRequest);
     }
 }

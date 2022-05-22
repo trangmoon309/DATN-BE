@@ -12,4 +12,13 @@ namespace Datn.ApiManagement.Models
 
         public List<VehicleTypeDetailRequest> VehicleTypeDetails { get; set; }
     }
+
+    public class UpdateVehicleTypeRequest
+    {
+        public string Code { get; set; }
+
+        public string Name { get; set; }
+
+        public List<UpdateVehicleTypeDetailRequest> VehicleTypeDetails { get; set; }
+    }
 }

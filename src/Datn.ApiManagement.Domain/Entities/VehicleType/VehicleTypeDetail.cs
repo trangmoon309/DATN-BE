@@ -7,8 +7,10 @@ namespace Datn.ApiManagement.Entities
 {
     public class VehicleTypeDetail : FullAuditedAggregateRoot<Guid>
     {
-        public string VehicleTypeId { get; set; }
+        public Guid VehicleTypeId { get; set; }
 
         public string Name { get; set; }
+
+        public VehicleType VehicleType { get; set; }
     }
 }
