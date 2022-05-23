@@ -143,7 +143,13 @@ namespace Datn.ApiManagement.Services
                 }
                 EntityHelper.TrySetId(newUser, GuidGenerator.Create);
 
-                await UserManager.CreateAsync(newUser, request.Password);
+                var result = await UserManager.CreateAsync(newUser, request.Password);
+                
+                if(result.Succeeded == false)
+                {
+                    var errors = result.Errors.ToList();
+                    throw new Exception(errors[0].Description);
+                }
 
                 var response = ObjectMapper.Map<IdentityUser, UserResponse>(newUser);
                 response.ExtraInfors = extraInforResponse;

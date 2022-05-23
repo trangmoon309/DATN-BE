@@ -14,13 +14,6 @@ public static class ApiManagementDbContextModelCreatingExtensions
     {
         Check.NotNull(builder, nameof(builder));
 
-        var options = new ApiManagementModelBuilderConfigurationOptions(
-            ApiManagementDbProperties.DbTablePrefix,
-            ApiManagementDbProperties.DbSchema
-        );
-
-        optionsAction?.Invoke(options);
-
         builder.Entity<FileInformation>(b =>
         {
             b.ToTable("FileInformations", "files");
