@@ -49,7 +49,7 @@ namespace Datn.ApiManagement.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> UpdateAsync(Guid id, VehicleRequest request)
+        public async Task<IActionResult> UpdateAsync(Guid id, UpdateVehicleRequest request)
         {
             var result = await _service.UpdateAsync(id, request);
 
