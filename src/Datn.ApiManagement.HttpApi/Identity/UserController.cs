@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Datn.ApiManagement.Controllers
 {
@@ -59,9 +60,24 @@ namespace Datn.ApiManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUpAsync(UserRequest request)
         {
-            var result = await _service.SignUpCustom(request);
+            try
+            {
+                var result = await _service.SignUpCustom(request);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                var exceptionError = new ExceptionHandlingResponse();
+                exceptionError.ValidationErrors.Add(
+                        new ValidationErrorsResponse
+                        {
+                            Message = e.Message,
+                            Member = e.Source
+                        });
+                return StatusCode(StatusCodes.Status500InternalServerError, exceptionError);
+            }
+
         }
     }
 }

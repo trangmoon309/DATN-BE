@@ -148,7 +148,7 @@ namespace Datn.ApiManagement.Services
                 if(result.Succeeded == false)
                 {
                     var errors = result.Errors.ToList();
-                    throw new Exception(errors[0].Description);
+                    throw new UserFriendlyException(errors[0].Description);
                 }
 
                 var response = ObjectMapper.Map<IdentityUser, UserResponse>(newUser);
