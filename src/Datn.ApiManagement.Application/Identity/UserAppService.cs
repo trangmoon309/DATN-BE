@@ -76,6 +76,7 @@ namespace Datn.ApiManagement.Services
                             var value = item.Value;
                             extraInforResponse.GetType().GetProperty(item.Key).SetValue(extraInforResponse, value);
                         }
+                        result.ExtraInfors = extraInforResponse;
                     }
                 }
                 return result;
