@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.Content;
+using Volo.Abp.Domain.Entities;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Datn.ApiManagement.Services
@@ -33,17 +34,17 @@ namespace Datn.ApiManagement.Services
             {
                 using var memoryStream = new MemoryStream();
                 await file.CopyToAsync(memoryStream).ConfigureAwait(false);
-                var id = Guid.NewGuid();
 
                 var newFile = new FileInformation()
                 {
                     Name = file.FileName,
                     Type = file.ContentType
                 };
+                EntityHelper.TrySetId(newFile, GuidGenerator.Create);
                 var created = await _fileRepository.InsertAsync(newFile);
                 responses.Add(ObjectMapper.Map<FileInformation, FileInformationResponse>(created));
 
-                await _blobContainer.SaveAsync(id.ToString(), memoryStream.ToArray()).ConfigureAwait(false);
+                await _blobContainer.SaveAsync(newFile.Id.ToString(), memoryStream.ToArray()).ConfigureAwait(false);
             }
             return responses;
         }

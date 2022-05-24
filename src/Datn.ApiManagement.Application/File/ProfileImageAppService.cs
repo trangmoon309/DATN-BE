@@ -1,4 +1,6 @@
-﻿using Datn.ApiManagement.Repositories;
+﻿using Datn.ApiManagement.Entities;
+using Datn.ApiManagement.Models;
+using Datn.ApiManagement.Repositories;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.Content;
+using Volo.Abp.Domain.Entities;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Datn.ApiManagement.Services
@@ -26,19 +29,22 @@ namespace Datn.ApiManagement.Services
 
         public async Task SaveProfileImageAsync(List<IFormFile> files)
         {
-            //var blobName = CurrentUser.GetId().ToString();
-            //var output = new List<DocumentDto>();
+            var responses = new List<FileInformationResponse>();
             foreach (var file in files)
             {
                 using var memoryStream = new MemoryStream();
                 await file.CopyToAsync(memoryStream).ConfigureAwait(false);
                 var id = Guid.NewGuid();
-                //var newFile = new Document(id, file.Length, file.ContentType, CurrentTenant.Id);
-                //var created = await _repository.InsertAsync(newFile);
-                
-                await _blobContainer.SaveAsync(id.ToString(), memoryStream.ToArray()).ConfigureAwait(false);
+                var newFile = new FileInformation()
+                {
+                    Name = file.FileName,
+                    Type = file.ContentType
+                };
+                EntityHelper.TrySetId(newFile, GuidGenerator.Create);
+                var created = await _fileRepository.InsertAsync(newFile);
+                responses.Add(ObjectMapper.Map<FileInformation, FileInformationResponse>(created));
 
-                //output.Add(ObjectMapper.Map<Document, DocumentDto>(newFile));
+                await _blobContainer.SaveAsync(newFile.Id.ToString(), memoryStream.ToArray()).ConfigureAwait(false);
             }
         }
 
