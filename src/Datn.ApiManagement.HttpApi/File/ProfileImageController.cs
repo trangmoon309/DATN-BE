@@ -19,24 +19,6 @@ namespace Datn.ApiManagement.Controllers
             _fileAppService = fileAppService;
         }
 
-        [HttpGet]
-        [Route("byName/{name}")]
-        public async Task<IActionResult> DownloadByNameAsync(string name)
-        {
-            var fileDto = await _fileAppService.GetProfileImageByNameAsync(name);
-
-            return File(fileDto, "image/jpeg", "logo");
-        }
-
-        [HttpGet]
-        [Route("byId/{id}")]
-        public async Task<IActionResult> DownloadByIdAsync(Guid id)
-        {
-            var fileDto = await _fileAppService.GetProfileImageByIdAsync(id);
-
-            return File(fileDto, "image/jpeg", "logo");
-        }
-
         [HttpPost]
         public async Task<IActionResult> UploadAsync([FromForm] List<IFormFile> files)
         {

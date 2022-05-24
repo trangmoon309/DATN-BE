@@ -11,9 +11,5 @@ namespace Datn.ApiManagement.Services
     public interface IProfileImageAppService : IApplicationService
     {
         Task<List<FileInformationResponse>> SaveProfileImageAsync(List<IFormFile> files);
-
-        Task<byte[]> GetProfileImageByNameAsync(string name);
-
-        Task<byte[]> GetProfileImageByIdAsync(Guid id);
     }
 }

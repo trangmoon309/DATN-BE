@@ -34,7 +34,7 @@ namespace Datn.ApiManagement.Services
             {
                 using var memoryStream = new MemoryStream();
                 await file.CopyToAsync(memoryStream).ConfigureAwait(false);
-
+                var id = Guid.NewGuid();
                 var newFile = new FileInformation()
                 {
                     Name = file.FileName,
@@ -43,22 +43,9 @@ namespace Datn.ApiManagement.Services
                 EntityHelper.TrySetId(newFile, GuidGenerator.Create);
                 var created = await _fileRepository.InsertAsync(newFile);
                 responses.Add(ObjectMapper.Map<FileInformation, FileInformationResponse>(created));
-
-                await _blobContainer.SaveAsync(newFile.Id.ToString(), memoryStream.ToArray()).ConfigureAwait(false);
+                await _blobContainer.SaveAsync(newFile.Id.ToString() + ".jpg", memoryStream.ToArray()).ConfigureAwait(false);
             }
             return responses;
-        }
-
-        public async Task<byte[]> GetVehicleImageByNameAsync(string name)
-        {
-            var x = await _blobContainer.GetAllBytesOrNullAsync(name);
-            return x;
-        }
-
-        public async Task<byte[]> GetVehicleImageByIdAsync(Guid id)
-        {
-            var x = await _blobContainer.GetAllBytesOrNullAsync(id.ToString());
-            return x;
         }
     }
 }
