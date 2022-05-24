@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Datn.ApiManagement.Entities;
 using Datn.ApiManagement.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -37,6 +38,8 @@ namespace Datn.ApiManagement.Services
         private readonly IDataFilter _dataFilter;
         private readonly IConfiguration _config;
         private readonly IUserRepository _repository;
+        private readonly IProfileImageAppService _profileAppService;
+
         protected IdentityUserManager UserManager { get; }
 
         public UserAppService(
@@ -44,8 +47,9 @@ namespace Datn.ApiManagement.Services
             IUserRepository repository,
             IAsyncQueryableExecuter asyncQueryableExecuter,
             IDataFilter dataFilter,
-            IConfiguration config, 
-            IdentityUserManager userManager) : base(repository)
+            IConfiguration config,
+            IdentityUserManager userManager, 
+            IProfileImageAppService profileAppService) : base(repository)
         {
             _currentUser = currentUser;
             _repository = repository;
@@ -53,6 +57,7 @@ namespace Datn.ApiManagement.Services
             _dataFilter = dataFilter;
             _config = config;
             UserManager = userManager;
+            _profileAppService = profileAppService;
         }
 
         public async Task<UserResponse> GetCurrentUser()
@@ -80,6 +85,42 @@ namespace Datn.ApiManagement.Services
                     }
                 }
                 return result;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<UserResponse> UpdateCurrentProfileAvatar(IFormFile avatar)
+        {
+            try
+            {
+                var response = new UserResponse();
+
+                if (_currentUser.Id.HasValue)
+                {
+                    var user = await UserManager.FindByIdAsync(_currentUser.Id.Value.ToString());
+
+                    if (user != null)
+                    {
+                        var images = await _profileAppService.SaveProfileImageAsync(new List<IFormFile>() { avatar });
+                        var extraInforResponse = new ExtraInfors();
+
+                        user.SetProperty("AvatarId", images.FirstOrDefault().Id);
+                        await UserManager.UpdateAsync(user);
+
+                        foreach (var item in extraInforResponse.GetType().GetProperties())
+                        {
+                            var value = user.GetProperty<string>(item.Name);
+                            extraInforResponse.GetType().GetProperty(item.Name).SetValue(extraInforResponse, value);
+                        }
+
+                        response = ObjectMapper.Map<IdentityUser, UserResponse>(user);
+                        response.ExtraInfors = extraInforResponse;
+                    }
+                }
+                return response;
             }
             catch (Exception e)
             {

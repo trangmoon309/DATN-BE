@@ -1,4 +1,5 @@
 ﻿using Datn.ApiManagement.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace Datn.ApiManagement.Services
                 UserRequest,
                 UserRequest>
     {
+        Task<UserResponse> UpdateCurrentProfileAvatar(IFormFile avatar);
+
         Task<UserResponse> UpdateCurrentProfile(ProfileRequest request);
 
         Task<UserResponse> GetCurrentUser();

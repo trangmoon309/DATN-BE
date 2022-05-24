@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Datn.ApiManagement.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Datn.ApiManagement.Services
 {
     public interface IProfileImageAppService : IApplicationService
     {
-        Task SaveProfileImageAsync(List<IFormFile> files);
+        Task<List<FileInformationResponse>> SaveProfileImageAsync(List<IFormFile> files);
 
         Task<byte[]> GetProfileImageByNameAsync(string name);
 

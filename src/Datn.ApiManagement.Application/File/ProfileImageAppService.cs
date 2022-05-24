@@ -27,7 +27,7 @@ namespace Datn.ApiManagement.Services
             _fileRepository = fileRepository;
         }
 
-        public async Task SaveProfileImageAsync(List<IFormFile> files)
+        public async Task<List<FileInformationResponse>> SaveProfileImageAsync(List<IFormFile> files)
         {
             var responses = new List<FileInformationResponse>();
             foreach (var file in files)
@@ -46,6 +46,7 @@ namespace Datn.ApiManagement.Services
 
                 await _blobContainer.SaveAsync(newFile.Id.ToString(), memoryStream.ToArray()).ConfigureAwait(false);
             }
+            return responses;
         }
 
         public async Task<byte[]> GetProfileImageByNameAsync(string name)

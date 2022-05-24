@@ -57,6 +57,15 @@ namespace Datn.ApiManagement.Controllers
             return Ok(result);
         }
 
+        [HttpPut]
+        [Route("avatar/current")]
+        public async Task<IActionResult> UpdateCurrentProfileAvatar(IFormFile file)
+        {
+            var result = await _service.UpdateCurrentProfileAvatar(file);
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> SignUpAsync(UserRequest request)
         {
