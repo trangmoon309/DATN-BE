@@ -107,7 +107,7 @@ namespace Datn.ApiManagement.Services
                         var images = await _profileAppService.SaveProfileImageAsync(new List<IFormFile>() { avatar });
                         var extraInforResponse = new ExtraInfors();
 
-                        user.SetProperty("AvatarId", images.FirstOrDefault().Id);
+                        user.SetProperty("AvatarId", images.FirstOrDefault().Id.ToString());
                         await UserManager.UpdateAsync(user);
 
                         foreach (var item in extraInforResponse.GetType().GetProperties())
