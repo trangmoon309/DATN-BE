@@ -64,7 +64,7 @@ namespace Datn.ApiManagement.Services
 
                 var entity = base.MapToEntity(input);
                 EntityHelper.TrySetId(entity, GuidGenerator.Create);
-                entity.Code = CodeAutoGenerationHelper.GetNextCode<VehicleLine>(toList, "VT", 2);
+                entity.Code = CodeAutoGenerationHelper.GetNextCode<VehicleLine>(toList, "VT", 4);
 
                 await _repository.InsertAsync(entity);
                 var result = ObjectMapper.Map<VehicleLine, VehicleLineResponse>(entity);

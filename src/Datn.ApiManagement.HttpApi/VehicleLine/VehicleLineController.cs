@@ -22,9 +22,9 @@ namespace Datn.ApiManagement.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetListAsync(PagedAndSortedResultRequestDto pageRequest)
+        public async Task<IActionResult> GetListAsync(string keyWord, PagedAndSortedResultRequestDto pageRequest)
         {
-            var result = await _service.GetListAsync(pageRequest);
+            var result = await _service.GetPagedListAsync(keyWord, pageRequest);
 
             return Ok(result);
         }

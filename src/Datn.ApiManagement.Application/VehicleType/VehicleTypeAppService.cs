@@ -68,7 +68,7 @@ namespace Datn.ApiManagement.Services
                 var entity = base.MapToEntity(input);
 
                 EntityHelper.TrySetId(entity, GuidGenerator.Create);
-                entity.Code = CodeAutoGenerationHelper.GetNextCode<VehicleType>(toList, "VT", 2);
+                entity.Code = CodeAutoGenerationHelper.GetNextCode<VehicleType>(toList, "VT", 4);
 
                 foreach (var item in entity.VehicleTypeDetails)
                 {
@@ -115,7 +115,7 @@ namespace Datn.ApiManagement.Services
             entity.VehicleTypeDetails.ForEach(x =>
             {
                 x.VehicleTypeId = id;
-                if (x.Id == null) EntityHelper.TrySetId(x, GuidGenerator.Create);
+                if (x.Id == null || x.Id == Guid.Empty) EntityHelper.TrySetId(x, GuidGenerator.Create);
             });
 
             await _repository.UpdateMasterAsync(entity);

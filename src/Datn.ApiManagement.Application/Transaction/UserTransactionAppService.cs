@@ -32,7 +32,7 @@ namespace Datn.ApiManagement.Services
             _asyncQueryableExecuter = asyncQueryableExecuter;
         }
 
-        public async Task<PagedResultDto<UserTransactionResponse>> GetByUserPagedListAsync(Guid userId, PagedAndSortedResultRequestDto pageRequest)
+        public async Task<PagedResultDto<UserTransactionResponse>> GetByUserPagedListAsync(Guid? userId, PagedAndSortedResultRequestDto pageRequest)
         {
             try
             {
@@ -40,9 +40,14 @@ namespace Datn.ApiManagement.Services
 
                 query = query.OrderByDescending(x => x.CreationTime);
 
-                query = query.Where(x => x.UserId == userId);
+                if (userId.HasValue)
+                {
+                    query = query.Where(x => x.UserId == userId.Value);
+                }
 
                 var toList = await _asyncQueryableExecuter.ToListAsync(query.Skip(pageRequest.SkipCount).Take(pageRequest.MaxResultCount));
+                toList = toList.OrderByDescending(x => x.CreationTime).ToList();
+
                 var items = ObjectMapper.Map<List<UserTransaction>, List<UserTransactionResponse>>(toList);
                 var total = query.Count();
 

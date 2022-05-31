@@ -76,7 +76,7 @@ namespace Datn.ApiManagement.Services
                 var entity = base.MapToEntity(input);
 
                 EntityHelper.TrySetId(entity, GuidGenerator.Create);
-                entity.Code = CodeAutoGenerationHelper.GetNextCode<Vehicle>(toList, "V", 2);
+                entity.Code = CodeAutoGenerationHelper.GetNextCode<Vehicle>(toList, "V", 4);
 
                 foreach (var item in entity.VehicleProperties)
                 {
@@ -114,7 +114,7 @@ namespace Datn.ApiManagement.Services
             entity.VehicleProperties.ForEach(x =>
             {
                 x.VehicleId = id;
-                if (x.Id == null) EntityHelper.TrySetId(x, GuidGenerator.Create);
+                if (x.Id == null || x.Id == Guid.Empty) EntityHelper.TrySetId(x, GuidGenerator.Create);
             });
 
             if (images != null && images.Count > 0)

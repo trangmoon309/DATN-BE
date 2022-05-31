@@ -23,9 +23,9 @@ namespace Datn.ApiManagement.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetListAsync(PagedAndSortedResultRequestDto pageRequest)
+        public async Task<IActionResult> GetListAsync(SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest)
         {
-            var result = await _service.GetListAsync(pageRequest);
+            var result = await _service.GetPagedListAsync(request, pageRequest);
 
             return Ok(result);
         }
