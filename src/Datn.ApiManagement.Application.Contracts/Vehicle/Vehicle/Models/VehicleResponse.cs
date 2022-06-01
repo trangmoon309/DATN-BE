@@ -13,6 +13,8 @@ namespace Datn.ApiManagement.Models
 
         public string Code { get; set; }
 
+        public string Name { get; set; }
+
         public string Color { get; set; }
 
         public double KilometerTravel { get; set; }
