@@ -60,6 +60,9 @@ public class ApiManagementApplicationAutoMapperProfile : Profile
         CreateMap<VehicleLine, VehicleLineResponse>(MemberList.None);
         CreateMap<VehicleLineRequest, VehicleLine>(MemberList.None);
 
+        CreateMap<VehicleImage, VehicleImageResponse>(MemberList.None);
+        CreateMap<VehicleImageRequest, VehicleImage>(MemberList.None);
+
         CreateMap<VehicleType, VehicleTypeResponse>(MemberList.None);
         CreateMap<VehicleTypeRequest, VehicleType>(MemberList.None);
         CreateMap<UpdateVehicleTypeRequest, VehicleType>(MemberList.None);

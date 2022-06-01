@@ -14,4 +14,11 @@ public class VehicleImageRepository : EfCoreRepository<IApiManagementDbContext, 
     public VehicleImageRepository(IDbContextProvider<IApiManagementDbContext> dbContextProvider) : base(dbContextProvider)
     {
     }
+
+    public async Task CreateMultiple(List<VehicleImage> vehicleImages)
+    {
+        await DbContext.VehicleImages.AddRangeAsync(vehicleImages);
+
+        await DbContext.SaveChangesAsync();
+    }
 }

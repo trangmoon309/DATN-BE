@@ -29,14 +29,17 @@ namespace Datn.ApiManagement.Services
         private readonly IVehicleRepository _repository;
         private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
         private readonly IVehicleImageAppService _vehiceImageAppService;
+        private readonly IVehicleImageRepository _vehiceImageRepository;
 
         public VehicleAppService(IVehicleRepository repository,
-            IAsyncQueryableExecuter asyncQueryableExecuter, 
-            IVehicleImageAppService vehiceImageAppService) : base(repository)
+            IAsyncQueryableExecuter asyncQueryableExecuter,
+            IVehicleImageAppService vehiceImageAppService, 
+            IVehicleImageRepository vehiceImageRepository) : base(repository)
         {
             _repository = repository;
             _asyncQueryableExecuter = asyncQueryableExecuter;
             _vehiceImageAppService = vehiceImageAppService;
+            _vehiceImageRepository = vehiceImageRepository;
         }
 
         public async Task<PagedResultDto<VehicleResponse>> GetPagedListAsync(SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest)
@@ -65,11 +68,10 @@ namespace Datn.ApiManagement.Services
             }
         }
 
-        public async Task<VehicleResponse> CreateWithImagesAsync(VehicleRequest input, List<IFormFile> images)
+        public async Task<VehicleResponse> CreatesAsync(VehicleRequest input)
         {
             try
             {
-                var vehicelImages = await _vehiceImageAppService.SaveVehicleImageAsync(images);
 
                 var query = _repository.GetList();
                 var toList = await _asyncQueryableExecuter.ToListAsync(query);
@@ -84,18 +86,6 @@ namespace Datn.ApiManagement.Services
                     item.VehicleId = entity.Id;
                 }
 
-                foreach(var item in vehicelImages)
-                {
-                    var x = new VehicleImage()
-                    {
-                        VehicleId = entity.Id,
-                        FileInformationId = item.Id
-                    };
-                    EntityHelper.TrySetId(x, GuidGenerator.Create);
-
-                    entity.VehicleImages.Add(x);
-                }
-
                 await _repository.InsertAsync(entity);
                 var result = ObjectMapper.Map<Vehicle, VehicleResponse>(entity);
                 return result;
@@ -106,7 +96,34 @@ namespace Datn.ApiManagement.Services
             }
         }
 
-        public async Task<VehicleResponse> UpdateWithImagesAsync(Guid id, UpdateVehicleRequest input, List<IFormFile> images)
+        public async Task<List<VehicleImageResponse>> CreatVehicleImagesAsync(Guid vehicleId, List<IFormFile> images)
+        {
+            try
+            {
+                var vehicelImages = await _vehiceImageAppService.SaveVehicleImageAsync(images);
+                var entities = new List<VehicleImage>();
+                foreach (var item in vehicelImages)
+                {
+                    var x = new VehicleImage()
+                    {
+                        VehicleId = vehicleId,
+                        FileInformationId = item.Id
+                    };
+                    EntityHelper.TrySetId(x, GuidGenerator.Create);
+                    entities.Add(x);
+                }
+
+                await _vehiceImageRepository.CreateMultiple(entities);
+
+                return ObjectMapper.Map<List<VehicleImage>, List<VehicleImageResponse>>(entities);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<VehicleResponse> UpdatesAsync(Guid id, UpdateVehicleRequest input)
         {
             var entity = await _asyncQueryableExecuter.FirstOrDefaultAsync(_repository.GetById(id));
             MapToEntity(input, entity);
@@ -117,26 +134,18 @@ namespace Datn.ApiManagement.Services
                 if (x.Id == null || x.Id == Guid.Empty) EntityHelper.TrySetId(x, GuidGenerator.Create);
             });
 
-            if (images != null && images.Count > 0)
-            {
-                var vehicelImages = await _vehiceImageAppService.SaveVehicleImageAsync(images);
-
-                foreach (var item in vehicelImages)
-                {
-                    var x = new VehicleImage()
-                    {
-                        VehicleId = entity.Id,
-                        FileInformationId = item.Id
-                    };
-                    EntityHelper.TrySetId(x, GuidGenerator.Create);
-
-                    entity.VehicleImages.Add(x);
-                }
-            }
+            entity.VehicleImages.Clear();
 
             await _repository.UpdateMasterAsync(entity);
 
             return ObjectMapper.Map<Vehicle, VehicleResponse>(entity);
+        }
+
+        public override async Task<VehicleResponse> GetAsync(Guid id)
+        {
+            var query = _repository.GetById(id);
+            var item = await _asyncQueryableExecuter.FirstOrDefaultAsync(query);
+            return ObjectMapper.Map<Vehicle, VehicleResponse>(item);
         }
     }
 }

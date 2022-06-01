@@ -40,9 +40,18 @@ namespace Datn.ApiManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(VehicleRequest request, List<IFormFile> images)
+        public async Task<IActionResult> CreateAsync(VehicleRequest request)
         {
-            var result = await _service.CreateWithImagesAsync(request, images);
+            var result = await _service.CreatesAsync(request);
+
+            return CreatedAtAction(null, result);
+        }
+
+        [HttpPost]
+        [Route("{vehicleId}/upload-vehicle-images")]
+        public async Task<IActionResult> CreatVehicleImagesAsync([FromForm] List<IFormFile> images, Guid vehicleId)
+        {
+            var result = await _service.CreatVehicleImagesAsync(vehicleId, images);
 
             return CreatedAtAction(null, result);
         }
@@ -51,7 +60,7 @@ namespace Datn.ApiManagement.Controllers
         [Route("{id}")]
         public async Task<IActionResult> UpdateAsync(Guid id, UpdateVehicleRequest request)
         {
-            var result = await _service.UpdateAsync(id, request);
+            var result = await _service.UpdatesAsync(id, request);
 
             return Ok(result);
         }

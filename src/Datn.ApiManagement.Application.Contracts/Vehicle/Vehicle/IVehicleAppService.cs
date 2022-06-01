@@ -18,8 +18,10 @@ namespace Datn.ApiManagement.Services
     {
         Task<PagedResultDto<VehicleResponse>> GetPagedListAsync(SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest);
 
-        Task<VehicleResponse> CreateWithImagesAsync(VehicleRequest input, List<IFormFile> images);
+        Task<VehicleResponse> CreatesAsync(VehicleRequest input);
 
-        Task<VehicleResponse> UpdateWithImagesAsync(Guid id, UpdateVehicleRequest input, List<IFormFile> images);
+        Task<List<VehicleImageResponse>> CreatVehicleImagesAsync(Guid vehicleId, List<IFormFile> images);
+
+        Task<VehicleResponse> UpdatesAsync(Guid id, UpdateVehicleRequest input);
     }
 }
