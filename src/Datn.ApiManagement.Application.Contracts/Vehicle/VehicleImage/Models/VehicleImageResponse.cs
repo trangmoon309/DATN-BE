@@ -11,8 +11,6 @@ namespace Datn.ApiManagement.Models
 
         public Guid FileInformationId { get; set; }
 
-        public VehicleResponse Vehicle { get; set; }
-
         public FileInformationResponse FileInformation { get; set; }
     }
 }

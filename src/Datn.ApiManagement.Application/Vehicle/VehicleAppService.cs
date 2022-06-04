@@ -42,7 +42,7 @@ namespace Datn.ApiManagement.Services
             _vehiceImageRepository = vehiceImageRepository;
         }
 
-        public async Task<PagedResultDto<VehicleResponse>> GetPagedListAsync(SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest)
+        public async Task<PagedResultDto<VehicleResponse>> GetListByCondition(SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest)
         {
             try
             {
@@ -50,11 +50,11 @@ namespace Datn.ApiManagement.Services
 
                 query = query.OrderByDescending(x => x.CreationTime);
 
-                if (request.KeyWord != null) query = _repository.SearchKeyWord(query, request.KeyWord);
+                if (!request.KeyWord.IsNullOrEmpty()) query = _repository.SearchKeyWord(query, request.KeyWord);
 
-                if(request.VehicleTypeId != null) query = query.Where(x => x.VehicleTypeId == request.VehicleTypeId);
+                if(request.VehicleTypeId.HasValue) query = query.Where(x => x.VehicleTypeId == request.VehicleTypeId.Value);
 
-                if (request.VehicleLineId != null) query = query.Where(x => x.VehicleLineId == request.VehicleLineId);
+                if (request.VehicleLineId.HasValue) query = query.Where(x => x.VehicleLineId == request.VehicleLineId.Value);
 
                 var toList = await _asyncQueryableExecuter.ToListAsync(query.Skip(pageRequest.SkipCount).Take(pageRequest.MaxResultCount));
                 var items = ObjectMapper.Map<List<Vehicle>, List<VehicleResponse>>(toList);

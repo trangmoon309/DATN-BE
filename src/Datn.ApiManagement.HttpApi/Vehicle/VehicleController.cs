@@ -23,9 +23,10 @@ namespace Datn.ApiManagement.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetListAsync(SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest)
+        [Route("by-condition")]
+        public async Task<IActionResult> GetListByConditionAsync(SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest)
         {
-            var result = await _service.GetPagedListAsync(request, pageRequest);
+            var result = await _service.GetListByCondition(request, pageRequest);
 
             return Ok(result);
         }

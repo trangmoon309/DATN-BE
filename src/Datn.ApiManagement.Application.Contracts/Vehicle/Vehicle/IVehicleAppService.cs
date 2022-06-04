@@ -16,7 +16,7 @@ namespace Datn.ApiManagement.Services
             VehicleRequest,
             UpdateVehicleRequest>
     {
-        Task<PagedResultDto<VehicleResponse>> GetPagedListAsync(SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest);
+        Task<PagedResultDto<VehicleResponse>> GetListByCondition(SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest);
 
         Task<VehicleResponse> CreatesAsync(VehicleRequest input);
 
