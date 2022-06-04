@@ -27,7 +27,7 @@ namespace Datn.ApiManagement.Repositories
         public IQueryable<Vehicle> GetList()
         {
             return GetQueryable()
-                .Include(x => x.VehicleProperties)
+                .Include(x => x.VehicleProperties).ThenInclude(x => x.VehicleTypeDetail)
                 .Include(x => x.VehicleImages)
                 .Include(x => x.VehicleLine)
                 .Include(x => x.VehicleType);
