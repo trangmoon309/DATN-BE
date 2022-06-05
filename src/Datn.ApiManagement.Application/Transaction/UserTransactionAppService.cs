@@ -29,14 +29,17 @@ namespace Datn.ApiManagement.Services
         private readonly IUserTransactionRepository _repository;
         private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
         private readonly IUserRepository _userRepository;
+        private readonly IVehicleRepository _vehicleRepository;
 
         public UserTransactionAppService(IUserTransactionRepository repository,
-            IAsyncQueryableExecuter asyncQueryableExecuter, 
-            IUserRepository userRepository) : base(repository)
+            IAsyncQueryableExecuter asyncQueryableExecuter,
+            IUserRepository userRepository, 
+            IVehicleRepository vehicleRepository) : base(repository)
         {
             _repository = repository;
             _asyncQueryableExecuter = asyncQueryableExecuter;
             _userRepository = userRepository;
+            _vehicleRepository = vehicleRepository;
         }
 
         public async Task<PagedResultDto<UserTransactionResponse>> GetByUserPagedListAsync(SearchUserTransactionRequest request, PagedAndSortedResultRequestDto pageRequest)
@@ -114,10 +117,11 @@ namespace Datn.ApiManagement.Services
         {
             try
             {
-
                 var query = _repository.GetList();
+                var vehicleList = _vehicleRepository.GetList();
                 var toList = await _asyncQueryableExecuter.ToListAsync(query);
                 var entity = base.MapToEntity(input);
+                double depositCosted = 0;
 
                 EntityHelper.TrySetId(entity, GuidGenerator.Create);
                 entity.Code = CodeAutoGenerationHelper.GetNextCode<UserTransaction>(toList, "TS", 4);
@@ -126,8 +130,11 @@ namespace Datn.ApiManagement.Services
                 {
                     EntityHelper.TrySetId(item, GuidGenerator.Create);
                     item.VehicleId = entity.Id;
+                    var vehicle = vehicleList.FirstOrDefault(x => x.Id == item.VehicleId);
+                    if (vehicle != null) depositCosted += vehicle.DepositPrice;
                 }
 
+                entity.DepositCosted = depositCosted;
                 await _repository.InsertAsync(entity);
                 var result = ObjectMapper.Map<UserTransaction, UserTransactionResponse>(entity);
                 return result;

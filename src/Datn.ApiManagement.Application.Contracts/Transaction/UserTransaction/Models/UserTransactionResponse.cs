@@ -20,6 +20,8 @@ namespace Datn.ApiManagement.Models
 
         public double TotalCost { get; set; }
 
+        public double DepositCosted { get; set; }
+
         public string CancelReason { get; set; }
 
         public int ReviewServiceQuality { get; set; }
