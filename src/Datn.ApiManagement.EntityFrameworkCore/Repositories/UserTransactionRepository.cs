@@ -17,12 +17,14 @@ public class UserTransactionRepository : EfCoreRepository<IApiManagementDbContex
     }
     public IQueryable<UserTransaction> GetList()
     {
-        return GetQueryable().Include(x => x.UserTransactionVehicles);
+        return GetQueryable()
+            .Include(x => x.UserTransactionVehicles).ThenInclude(x => x.Vehicle);
     }
 
     public IQueryable<UserTransaction> GetById(Guid id)
     {
-        return GetQueryable().Where(x => !x.IsDeleted && x.Id == id).Include(x => x.UserTransactionVehicles);
+        return GetQueryable()
+            .Where(x => !x.IsDeleted && x.Id == id)
+            .Include(x => x.UserTransactionVehicles).ThenInclude(x => x.Vehicle);
     }
-
 }

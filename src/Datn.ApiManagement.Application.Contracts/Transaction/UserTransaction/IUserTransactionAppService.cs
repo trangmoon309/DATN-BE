@@ -15,6 +15,6 @@ namespace Datn.ApiManagement.Services
             UserTransactionRequest,
             UserTransactionRequest>
     {
-        Task<PagedResultDto<UserTransactionResponse>> GetByUserPagedListAsync(Guid? userId, PagedAndSortedResultRequestDto pageRequest);
+        Task<PagedResultDto<UserTransactionResponse>> GetByUserPagedListAsync(SearchUserTransactionRequest request, PagedAndSortedResultRequestDto pageRequest);
     }
 }

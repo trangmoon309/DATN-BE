@@ -10,6 +10,8 @@ namespace PBL6.Hreo.Repository
 {
     public interface IUserRepository : IRepository<User, Guid>
     {
+        IQueryable<User> SearchKeyWord(string keyWord);
+
         Task<IQueryable<User>> GetList();
 
         Task<IQueryable<User>> GetById(Guid id);

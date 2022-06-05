@@ -16,6 +16,19 @@ namespace PBL6.Hreo.Repository
         {
         }
 
+        public IQueryable<User> SearchKeyWord(string keyWord)
+        {
+            if (keyWord.IsNullOrEmpty())
+            {
+                return DbContext.AbpUsers;
+            }
+            else
+            {
+                return DbContext.AbpUsers.Where(x => (x.Name.ToLower().Contains(keyWord.ToLower())
+                    || x.Surname.ToLower().Contains(keyWord.ToLower())) && !x.IsDeleted);
+            }
+        }
+
         public async Task<IQueryable<User>> GetList()
         {
             var x = await GetQueryableAsync();

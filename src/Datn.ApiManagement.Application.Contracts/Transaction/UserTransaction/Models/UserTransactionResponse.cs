@@ -10,6 +10,8 @@ namespace Datn.ApiManagement.Models
     {
         public Guid UserId { get; set; }
 
+        public UserResponse User { get; set; }
+
         public string Code { get; set; }
 
         public DateTime ReceivedVehicleDate { get; set; }

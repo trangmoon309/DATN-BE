@@ -6,8 +6,6 @@ namespace Datn.ApiManagement.Models
 {
     public class UserTransactionVehicleRequest
     {
-        public Guid UserTransactionId { get; set; }
-
         public Guid VehicleId { get; set; }
 
         public int ReviewRideQuality { get; set; }
