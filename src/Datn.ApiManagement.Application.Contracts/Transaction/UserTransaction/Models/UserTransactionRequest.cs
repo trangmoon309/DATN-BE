@@ -13,9 +13,13 @@ namespace Datn.ApiManagement.Models
 
         public DateTime ReceivedVehicleDate { get; set; }
 
-        public DateTime ReturnedVehicleDate { get; set; }
+        public DateTime? ReturnedVehicleDate { get; set; }
 
         public double TotalCost { get; set; }
+
+        public double DepositCosted { get; set; }
+
+        public int TotalDays { get; set; }
 
         public string CancelReason { get; set; }
 

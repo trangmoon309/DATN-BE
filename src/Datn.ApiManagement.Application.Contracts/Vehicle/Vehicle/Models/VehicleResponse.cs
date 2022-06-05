@@ -17,6 +17,8 @@ namespace Datn.ApiManagement.Models
 
         public string Color { get; set; }
 
+        public int Amount { get; set; }
+
         public double KilometerTravel { get; set; }
 
         public string LicensePlate { get; set; }
