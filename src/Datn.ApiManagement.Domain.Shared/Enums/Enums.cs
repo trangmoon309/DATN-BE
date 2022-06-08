@@ -16,10 +16,7 @@ namespace Datn.ApiManagement.Enums
             WAITINGFORPAYING = 1,
 
             [Description("Payed")]
-            DONE = 2,
-
-            [Description("Cancel paying")]
-            CANCEL = 3,
+            PAYED = 2,
         }
 
         public enum RentalStatus
@@ -32,6 +29,9 @@ namespace Datn.ApiManagement.Enums
 
             [Description("Returned")]
             RETURNED = 2,
+
+            [Description("Cancel paying")]
+            CANCEL = 3,
         }
     }
 }

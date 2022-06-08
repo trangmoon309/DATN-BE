@@ -178,9 +178,32 @@ namespace Datn.ApiManagement.Services
         {
             try
             {
-                //var transactions = await _repository.GetListAsync();
-                //var currentQuantityReview = transactions.Where(x => x.CostStatus == Enums.Enums.CostStatus.DONE && x.L)
-                return null;
+                var result = new SummaryInfors();
+                var transactions = await _repository.GetListAsync();
+
+                var currentTransaction = transactions.Where(x => x.CostStatus == Enums.Enums.CostStatus.PAYED
+                && x.PayingDate.HasValue
+                && x.PayingDate.Value.Date.Month == DateTime.Now.Month);
+
+                var previousTransactione = transactions.Where(x => x.CostStatus == Enums.Enums.CostStatus.PAYED
+                && x.PayingDate.HasValue
+                && x.PayingDate.Value.Date.Month == (DateTime.Now.Month - 1));
+
+                result.AverageIncome = currentTransaction.Sum(x => x.TotalCost) / currentTransaction.Count();
+                result.AverageIncomeDifference = result.AverageIncome - (previousTransactione.Sum(x => x.TotalCost) / previousTransactione.Count());
+
+                result.QualityReview = currentTransaction.Sum(x => x.ReviewServiceQuality) / currentTransaction.Count();
+                result.QualityReviewDifference = result.AverageIncome - (previousTransactione.Sum(x => x.ReviewServiceQuality) / previousTransactione.Count());
+
+                var currentCancelTransaction = transactions.Where(x => x.RentalStatus == Enums.Enums.RentalStatus.CANCEL
+                && x.ReceivedVehicleDate.Date.Month == DateTime.Now.Month);
+
+                var previousCancelTransaction = transactions.Where(x => x.RentalStatus == Enums.Enums.RentalStatus.CANCEL
+                && x.ReceivedVehicleDate.Date.Month == DateTime.Now.Month - 1);
+
+                result.TransactionCancel = currentCancelTransaction.Count();
+                result.TransactionCancelDifference = previousCancelTransaction.Count();
+                return result;
             }
             catch (Exception)
             {

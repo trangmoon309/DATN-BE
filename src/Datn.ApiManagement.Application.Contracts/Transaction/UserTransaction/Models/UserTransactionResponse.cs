@@ -18,6 +18,15 @@ namespace Datn.ApiManagement.Models
 
         public DateTime? ReturnedVehicleDate { get; set; }
 
+        // Ngày đặt cọc
+        public DateTime? DepositDate { get; set; }
+
+        // Ngày hủy đơn
+        public DateTime? CancelDate { get; set; }
+
+        // Ngày hết tiền
+        public DateTime? PayingDate { get; set; }
+
         public double TotalCost { get; set; }
 
         public double DepositCosted { get; set; }

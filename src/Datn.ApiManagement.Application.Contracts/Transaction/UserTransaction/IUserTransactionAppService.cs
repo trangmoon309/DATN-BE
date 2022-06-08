@@ -16,5 +16,7 @@ namespace Datn.ApiManagement.Services
             UpdateUserTransactionRequest>
     {
         Task<PagedResultDto<UserTransactionResponse>> GetByUserPagedListAsync(SearchUserTransactionRequest request, PagedAndSortedResultRequestDto pageRequest);
+
+        Task<SummaryInfors> SummaryInfors();
     }
 }

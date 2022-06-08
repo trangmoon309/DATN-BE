@@ -29,6 +29,15 @@ namespace Datn.ApiManagement.Controllers
         }
 
         [HttpGet]
+        [Route("summary")]
+        public async Task<IActionResult> SummaryAsync()
+        {
+            var result = await _service.SummaryInfors();
+
+            return Ok(result);
+        }
+
+        [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetAsync(Guid id)
         {
