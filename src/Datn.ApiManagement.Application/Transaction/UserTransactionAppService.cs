@@ -33,7 +33,7 @@ namespace Datn.ApiManagement.Services
 
         public UserTransactionAppService(IUserTransactionRepository repository,
             IAsyncQueryableExecuter asyncQueryableExecuter,
-            IUserRepository userRepository, 
+            IUserRepository userRepository,
             IVehicleRepository vehicleRepository) : base(repository)
         {
             _repository = repository;
@@ -47,7 +47,7 @@ namespace Datn.ApiManagement.Services
             try
             {
                 var query = _repository.GetList();
-                var users = await _asyncQueryableExecuter.ToListAsync( _userRepository.SearchKeyWord(request.KeyWord));
+                var users = await _asyncQueryableExecuter.ToListAsync(_userRepository.SearchKeyWord(request.KeyWord));
                 var userReponses = ObjectMapper.Map<List<User>, List<UserResponse>>(users);
 
                 query = query.OrderByDescending(x => x.CreationTime);
@@ -166,6 +166,21 @@ namespace Datn.ApiManagement.Services
                 result.User = userReponses.Find(y => y.Id == result.UserId);
 
                 return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<SummaryInfors> SummaryInfors()
+        {
+            try
+            {
+                //var transactions = await _repository.GetListAsync();
+                //var currentQuantityReview = transactions.Where(x => x.CostStatus == Enums.Enums.CostStatus.DONE && x.L)
+                return null;
             }
             catch (Exception)
             {
