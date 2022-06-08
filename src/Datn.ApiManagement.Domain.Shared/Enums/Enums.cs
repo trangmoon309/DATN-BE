@@ -9,14 +9,17 @@ namespace Datn.ApiManagement.Enums
     {
         public enum CostStatus
         {
+            [Description("Deposited")]
+            DEPOSITED = 0,
+
             [Description("Waiting for paying")]
-            WAITING = 0,
+            WAITINGFORPAYING = 1,
 
             [Description("Payed")]
-            DONE = 1,
+            DONE = 2,
 
             [Description("Cancel paying")]
-            CANCEL = 2,
+            CANCEL = 3,
         }
 
         public enum RentalStatus
