@@ -13,7 +13,7 @@ namespace Datn.ApiManagement.Services
             Guid,
             PagedAndSortedResultRequestDto,
             UserTransactionRequest,
-            UserTransactionRequest>
+            UpdateUserTransactionRequest>
     {
         Task<PagedResultDto<UserTransactionResponse>> GetByUserPagedListAsync(SearchUserTransactionRequest request, PagedAndSortedResultRequestDto pageRequest);
     }

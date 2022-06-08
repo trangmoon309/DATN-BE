@@ -45,9 +45,11 @@ public class ApiManagementApplicationAutoMapperProfile : Profile
 
         CreateMap<UserTransaction, UserTransactionResponse>(MemberList.None);
         CreateMap<UserTransactionRequest, UserTransaction>(MemberList.None);
+        CreateMap<UpdateUserTransactionRequest, UserTransaction>(MemberList.None);
 
         CreateMap<UserTransactionVehicle, UserTransactionVehicleResponse>(MemberList.None);
         CreateMap<UserTransactionVehicleRequest, UserTransactionVehicle>(MemberList.None);
+        CreateMap<UpdateUserTransactionVehicleRequest, UserTransactionVehicle>(MemberList.None);
 
         CreateMap<Vehicle, VehicleResponse>(MemberList.None);
         CreateMap<VehicleRequest, Vehicle>(MemberList.None);

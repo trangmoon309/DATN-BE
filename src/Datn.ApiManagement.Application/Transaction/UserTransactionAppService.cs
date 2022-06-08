@@ -24,7 +24,7 @@ namespace Datn.ApiManagement.Services
             Guid,
             PagedAndSortedResultRequestDto,
             UserTransactionRequest,
-            UserTransactionRequest>, IUserTransactionAppService
+            UpdateUserTransactionRequest>, IUserTransactionAppService
     {
         private readonly IUserTransactionRepository _repository;
         private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
@@ -141,6 +141,35 @@ namespace Datn.ApiManagement.Services
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        public override async Task<UserTransactionResponse> UpdateAsync(Guid id, UpdateUserTransactionRequest input)
+        {
+            try
+            {
+                var users = await _asyncQueryableExecuter.ToListAsync(_userRepository.GetList().Result);
+                var userReponses = ObjectMapper.Map<List<User>, List<UserResponse>>(users);
+                var entity = await _asyncQueryableExecuter.FirstOrDefaultAsync(_repository.GetById(id));
+                MapToEntity(input, entity);
+
+                entity.UserTransactionVehicles.ForEach(x =>
+                {
+                    x.VehicleId = id;
+                    if (x.Id == null || x.Id == Guid.Empty) EntityHelper.TrySetId(x, GuidGenerator.Create);
+                });
+
+                await _repository.UpdateMasterAsync(entity);
+
+                var result = ObjectMapper.Map<UserTransaction, UserTransactionResponse>(entity);
+                result.User = userReponses.Find(y => y.Id == result.UserId);
+
+                return result;
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }
