@@ -156,7 +156,7 @@ namespace Datn.ApiManagement.Services
 
                 entity.UserTransactionVehicles.ForEach(x =>
                 {
-                    x.VehicleId = id;
+                    x.UserTransactionId = id;
                     if (x.Id == null || x.Id == Guid.Empty) EntityHelper.TrySetId(x, GuidGenerator.Create);
                 });
 
