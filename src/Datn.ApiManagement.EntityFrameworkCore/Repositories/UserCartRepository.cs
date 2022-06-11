@@ -18,6 +18,6 @@ public class UserCartRepository : EfCoreRepository<IApiManagementDbContext, User
 
     public IQueryable<UserCart> GetList()
     {
-        return GetQueryable().Include(x => x.Vehicle);
+        return GetQueryable().Include(x => x.Vehicle).ThenInclude(x => x.VehicleImages);
     }
 }
