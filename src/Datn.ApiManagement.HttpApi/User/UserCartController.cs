@@ -48,10 +48,10 @@ namespace Datn.ApiManagement.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
-        public async Task<IActionResult> UpdateAsync(Guid id, UserCartRequest request)
+        [Route("{userId}")]
+        public async Task<IActionResult> UpdateAsync(Guid userId, List<UpdateUserCartRequest> requests)
         {
-            var result = await _service.UpdateAsync(id, request);
+            var result = await _service.UpdateMultipleByUserId(userId, requests);
 
             return Ok(result);
         }

@@ -21,7 +21,7 @@ namespace Datn.ApiManagement.Services
             Guid,
             PagedAndSortedResultRequestDto,
             UserCartRequest,
-            UserCartRequest>, IUserCartAppService
+            UpdateUserCartRequest>, IUserCartAppService
     {
         private readonly IUserCartRepository _repository;
         private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
@@ -51,6 +51,43 @@ namespace Datn.ApiManagement.Services
             catch (Exception e)
             {
                 throw e;
+            }
+        }
+
+        public async Task<List<UserCartResponse>> UpdateMultipleByUserId(Guid userId, List<UpdateUserCartRequest> requests)
+        {
+            try
+            {
+                var query = _repository.GetListByUserId(userId);
+
+                query = query.OrderByDescending(x => x.CreationTime);
+
+                var updatedItems = new List<UserCart>();
+                var deletedItems = new List<UserCart>();
+
+                foreach(var item in query)
+                {
+                    var request = requests.Find(x => x.Id == item.Id);
+                    if(request != null)
+                    {
+                        item.Quantity = request.Quantity;
+                        updatedItems.Add(item);
+                    }
+                    else
+                    {
+                        deletedItems.Add(item);
+                    }
+                }
+
+                if(updatedItems.Any()) await _repository.UpdateMultiple(updatedItems);
+                if (deletedItems.Any()) await _repository.DeleteMultiple(deletedItems);
+
+                return ObjectMapper.Map<List<UserCart>, List<UserCartResponse>>(updatedItems);
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

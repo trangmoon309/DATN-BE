@@ -13,8 +13,10 @@ namespace Datn.ApiManagement.Services
             Guid,
             PagedAndSortedResultRequestDto,
             UserCartRequest,
-            UserCartRequest>
+            UpdateUserCartRequest>
     {
         Task<PagedResultDto<UserCartResponse>> GetByUserPagedListAsync(Guid userId, PagedAndSortedResultRequestDto pageRequest);
+
+        Task<List<UserCartResponse>> UpdateMultipleByUserId(Guid userId, List<UpdateUserCartRequest> requests);
     }
 }
