@@ -17,5 +17,9 @@ namespace Datn.ApiManagement.Models
         public int TransactionCancel { get; set; }
 
         public double TransactionCancelDifference { get; set; }
+
+        public List<UserTransactionResponse> SuccessTransactions { get; set; }
+
+        public List<UserTransactionResponse> CanceledTransactions { get; set; }
     }
 }

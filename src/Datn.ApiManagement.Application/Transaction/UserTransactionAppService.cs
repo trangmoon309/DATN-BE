@@ -189,11 +189,11 @@ namespace Datn.ApiManagement.Services
                 && x.PayingDate.HasValue
                 && x.PayingDate.Value.Date.Month == (DateTime.Now.Month - 1));
 
-                result.AverageIncome = currentTransaction.Sum(x => x.TotalCost) / currentTransaction.Count();
-                result.AverageIncomeDifference = result.AverageIncome - (previousTransactione.Sum(x => x.TotalCost) / previousTransactione.Count());
+                result.AverageIncome = currentTransaction.Count() > 0 ? currentTransaction.Sum(x => x.TotalCost) / currentTransaction.Count() : 0;
+                result.AverageIncomeDifference = previousTransactione.Count() > 0 ? result.AverageIncome - (previousTransactione.Sum(x => x.TotalCost) / previousTransactione.Count()) : 0;
 
-                result.QualityReview = currentTransaction.Sum(x => x.ReviewServiceQuality) / currentTransaction.Count();
-                result.QualityReviewDifference = result.AverageIncome - (previousTransactione.Sum(x => x.ReviewServiceQuality) / previousTransactione.Count());
+                result.QualityReview = currentTransaction.Count() >0 ? currentTransaction.Sum(x => x.ReviewServiceQuality) / currentTransaction.Count() : 0;
+                result.QualityReviewDifference = previousTransactione.Count() > 0 ? result.AverageIncome - (previousTransactione.Sum(x => x.ReviewServiceQuality) / previousTransactione.Count()) : 0;
 
                 var currentCancelTransaction = transactions.Where(x => x.RentalStatus == Enums.Enums.RentalStatus.CANCEL
                 && x.ReceivedVehicleDate.Date.Month == DateTime.Now.Month);
@@ -203,6 +203,9 @@ namespace Datn.ApiManagement.Services
 
                 result.TransactionCancel = currentCancelTransaction.Count();
                 result.TransactionCancelDifference = previousCancelTransaction.Count();
+
+                result.SuccessTransactions = ObjectMapper.Map<List<UserTransaction>, List<UserTransactionResponse>>(transactions.Where(x => x.RentalStatus == Enums.Enums.RentalStatus.RETURNED).ToList());
+                result.CanceledTransactions = ObjectMapper.Map<List<UserTransaction>, List<UserTransactionResponse>>(transactions.Where(x => x.RentalStatus == Enums.Enums.RentalStatus.CANCEL).ToList());
                 return result;
             }
             catch (Exception)

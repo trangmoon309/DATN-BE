@@ -60,6 +60,29 @@ namespace Datn.ApiManagement.Services
             _profileAppService = profileAppService;
         }
 
+        public override async Task<PagedResultDto<UserResponse>> GetListAsync(PagedAndSortedResultRequestDto input)
+        {
+            var results = new List<UserResponse>();
+            var users = await _repository.GetList();
+            foreach(var user in users)
+            {
+                var result = ObjectMapper.Map<User, UserResponse>(user);
+                var extraInforResponse = new ExtraInfors();
+                foreach (var prop in user.ExtraProperties)
+                {
+                    var value = prop.Value;
+                    extraInforResponse.GetType().GetProperty(prop.Key).SetValue(extraInforResponse, value);
+                }
+                result.ExtraInfors = extraInforResponse;
+                results.Add(result);
+            }
+
+            results = results.Skip(input.SkipCount).Take(input.MaxResultCount).ToList();
+            var total = results.Count();
+
+            return new PagedResultDto<UserResponse>(total, results);
+        }
+
         public async Task<UserResponse> GetCurrentUser()
         {
             try
