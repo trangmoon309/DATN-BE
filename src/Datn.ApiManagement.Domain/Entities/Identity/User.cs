@@ -43,6 +43,6 @@ namespace Datn.ApiManagement.Entities
 
         public int AccessFailedCount { get; set; }
 
-        //public List<UserRole> UserRoles { get; set; }
+        public List<UserRole> UserRoles { get; set; }
     }
 }

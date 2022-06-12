@@ -34,6 +34,9 @@ public class ApiManagementApplicationAutoMapperProfile : Profile
         CreateMap<Role, RoleResponse>(MemberList.None);
         CreateMap<RoleRequest, Role>(MemberList.None);
 
+        CreateMap<UserRole, UserRoleResponse>(MemberList.None);
+        CreateMap<UserRoleRequest, UserRole>(MemberList.None);
+
         CreateMap<FileInformation, FileInformationResponse>(MemberList.None);
         CreateMap<FileInformationRequest, FileInformation>(MemberList.None);
 

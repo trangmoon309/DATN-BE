@@ -38,5 +38,7 @@ namespace Datn.ApiManagement.Models
         public int AccessFailedCount { get; set; }
 
         public ExtraInfors ExtraInfors { get; set; } = new ExtraInfors();
+
+        public List<UserRoleResponse> UserRoles { get; set; }
     }
 }
