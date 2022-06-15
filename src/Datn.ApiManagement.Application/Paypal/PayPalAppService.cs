@@ -62,7 +62,7 @@ namespace Datn.ApiManagement.Services
             return accessToken;
         }
 
-        private static async Task<PayPalPaymentCreatedResponse> CreatePaypalPaymentAsync(HttpClient http, PaypalAccessToken accessToken)
+        private static async Task<PayPalPaymentCreatedResponse> CreatePaypalPaymentAsync(HttpClient http, PaypalAccessToken accessToken, double total)
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "v1/payments/payment");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken.access_token);
@@ -83,7 +83,7 @@ namespace Datn.ApiManagement.Services
                     {
                         amount = new
                         {
-                            total = 7.47,
+                            total = total,
                             currency = "USD"
                         }
                     }
@@ -117,7 +117,7 @@ namespace Datn.ApiManagement.Services
             return executedPayment;
         }
 
-        public async Task Test()
+        public async Task<string> CreatePayment(double total)
         {
             HttpClient http = GetPaypalHttpClient();
 
@@ -126,7 +126,7 @@ namespace Datn.ApiManagement.Services
             Log.Information("Access Token \n{@accessToken}", accessToken);
 
             // Step 2: Create the payment
-            PayPalPaymentCreatedResponse createdPayment = await CreatePaypalPaymentAsync(http, accessToken);
+            PayPalPaymentCreatedResponse createdPayment = await CreatePaypalPaymentAsync(http, accessToken, total);
             Log.Information("Created payment \n{@createdPayment}", createdPayment);
 
             // Step 3: Get the approval_url and paste it into a browser
@@ -134,22 +134,19 @@ namespace Datn.ApiManagement.Services
             var approval_url = createdPayment.links.First(x => x.rel == "approval_url").href;
             Log.Information("approval_url\n{approval_url}", approval_url);
 
-            //
-            // IMPORTANT: Stop the program here, and re-run only the section below (comment out Step 2 and Step 3) and paste in the correct paymentId and payerId
-            //
-
+            return approval_url;
             //http://localhost:3000/user-transaction?paymentId=PAYID-MKULKUA9J247781BA604802A&token=EC-19012022J16193702&PayerID=LAXAPG2X2KH94
             // Step 4: When paypal redirects to the return_url, we need to grab the PayerID and the paymentId and execute the payment
-            var paymentId = "PAYID-MKULKUA9J247781BA604802A";
-            var payerId = "LAXAPG2X2KH94";
-
-            //PayPalPaymentExecutedResponse executedPayment = await ExecutePaypalPaymentAsync(http, accessToken, paymentId, payerId);
-            //Log.Information("Executed payment \n{@executedPayment}", executedPayment);
         }
 
-        public async void GetResult(string paymentId, string token, string PayerID)
+        public async Task<PayPalPaymentExecutedResponse> GetResult(string paymentId, string token, string PayerID)
         {
-            var x = PayerID;
+            HttpClient http = GetPaypalHttpClient();
+            PaypalAccessToken accessToken = await GetPayPalAccessTokenAsync(http);
+
+            PayPalPaymentExecutedResponse executedPayment = await ExecutePaypalPaymentAsync(http, accessToken, paymentId, paymentId);
+
+            return executedPayment;
         }
     }
 }

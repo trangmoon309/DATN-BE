@@ -10,8 +10,8 @@ namespace Datn.ApiManagement.Services
 {
     public interface IPayPalAppService : IApplicationService
     {
-        Task Test();
+        Task<PayPalPaymentExecutedResponse> GetResult(string paymentId, string token, string PayerID);
 
-        void GetResult(string paymentId, string token, string PayerID);
+        Task<string> CreatePayment(double total);
     }
 }

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
+using System.Net;
+using System.Net.Http;
 
 namespace Datn.ApiManagement.Controllers
 {
@@ -20,19 +22,21 @@ namespace Datn.ApiManagement.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetListAsync()
+        [HttpPost]
+        [Route("payment/create")]
+        public async Task<HttpResponseMessage> GetListAsync(double total)
         {
-            await _service.Test();
-
-            return Ok();
+            var url = await _service.CreatePayment(total);
+            var response = new HttpResponseMessage(HttpStatusCode.Moved);
+            response.Headers.Location = new Uri(url);
+            return response;
         }
 
         [HttpGet]
         [Route("payment/success")]
         public async Task<IActionResult> GetListAsync(string paymentId, string token, string PayerID)
         {
-            _service.GetResult(paymentId, token, PayerID);
+            await _service.GetResult(paymentId, token, PayerID);
 
             return Ok();
         }

@@ -10,6 +10,10 @@ namespace Datn.ApiManagement.Models
     {
         public Guid UserId { get; set; }
 
+        public Guid PaymenPayPalId { get; set; }
+
+        public Guid PayerIDPayPalId { get; set; }
+
         public UserResponse User { get; set; }
 
         public string Code { get; set; }
