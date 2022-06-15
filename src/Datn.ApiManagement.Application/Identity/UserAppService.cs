@@ -39,6 +39,7 @@ namespace Datn.ApiManagement.Services
         private readonly IConfiguration _config;
         private readonly IUserRepository _repository;
         private readonly IProfileImageAppService _profileAppService;
+        private readonly IUserRoleRepository _userRoleRepository;
 
         protected IdentityUserManager UserManager { get; }
 
@@ -48,8 +49,9 @@ namespace Datn.ApiManagement.Services
             IAsyncQueryableExecuter asyncQueryableExecuter,
             IDataFilter dataFilter,
             IConfiguration config,
-            IdentityUserManager userManager, 
-            IProfileImageAppService profileAppService) : base(repository)
+            IdentityUserManager userManager,
+            IProfileImageAppService profileAppService, 
+            IUserRoleRepository userRoleRepository) : base(repository)
         {
             _currentUser = currentUser;
             _repository = repository;
@@ -58,6 +60,7 @@ namespace Datn.ApiManagement.Services
             _config = config;
             UserManager = userManager;
             _profileAppService = profileAppService;
+            _userRoleRepository = userRoleRepository;
         }
 
         public override async Task<PagedResultDto<UserResponse>> GetListAsync(PagedAndSortedResultRequestDto input)
@@ -120,6 +123,8 @@ namespace Datn.ApiManagement.Services
             try
             {
                 var response = new UserResponse();
+                var userRoles = await _asyncQueryableExecuter.ToListAsync(_userRoleRepository.GetList());
+                var userRoleResponses = ObjectMapper.Map<List<UserRole>, List<UserRoleResponse>>(userRoles);
 
                 if (_currentUser.Id.HasValue)
                 {
@@ -143,6 +148,7 @@ namespace Datn.ApiManagement.Services
                         response.ExtraInfors = extraInforResponse;
                     }
                 }
+                response.UserRoles = userRoleResponses.Where(x => x.UserId == response.Id).ToList();
                 return response;
             }
             catch (Exception e)
@@ -156,6 +162,8 @@ namespace Datn.ApiManagement.Services
             try
             {
                 var response = new UserResponse();
+                var userRoles = await _asyncQueryableExecuter.ToListAsync( _userRoleRepository.GetList());
+                var userRoleResponses = ObjectMapper.Map<List<UserRole>, List<UserRoleResponse>>(userRoles);
 
                 if (_currentUser.Id.HasValue)
                 {
@@ -183,6 +191,7 @@ namespace Datn.ApiManagement.Services
                         response.ExtraInfors = extraInforResponse;
                     }
                 }
+                response.UserRoles = userRoleResponses.Where(x => x.UserId == response.Id).ToList();
                 return response;
             }
             catch (Exception e)
