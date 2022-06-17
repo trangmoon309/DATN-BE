@@ -9,9 +9,9 @@ namespace Datn.ApiManagement.Models
     {
         public Guid UserId { get; set; }
 
-        public Guid PaymenPayPalId { get; set; }
+        public string PaymenPayPalId { get; set; }
 
-        public Guid PayerIDPayPalId { get; set; }
+        public string PayerIDPayPalId { get; set; }
 
         public string Code { get; set; }
 
@@ -19,7 +19,14 @@ namespace Datn.ApiManagement.Models
 
         public DateTime? ReturnedVehicleDate { get; set; }
 
-        public DateTime DepositDate { get; set; }
+        // Ngày đặt cọc
+        public DateTime? DepositDate { get; set; }
+
+        // Ngày hủy đơn
+        public DateTime? CancelDate { get; set; }
+
+        // Ngày hết tiền
+        public DateTime? PayingDate { get; set; }
 
         public double TotalCost { get; set; }
 
@@ -42,9 +49,9 @@ namespace Datn.ApiManagement.Models
     {
         public Guid UserId { get; set; }
 
-        public Guid PaymenPayPalId { get; set; }
+        public string PaymenPayPalId { get; set; }
 
-        public Guid PayerIDPayPalId { get; set; }
+        public string PayerIDPayPalId { get; set; }
 
         public string Code { get; set; }
 

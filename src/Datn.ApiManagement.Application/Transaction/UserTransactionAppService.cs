@@ -30,16 +30,19 @@ namespace Datn.ApiManagement.Services
         private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
         private readonly IUserRepository _userRepository;
         private readonly IVehicleRepository _vehicleRepository;
+        private readonly IUserCartRepository _userCartRepository;
 
         public UserTransactionAppService(IUserTransactionRepository repository,
             IAsyncQueryableExecuter asyncQueryableExecuter,
             IUserRepository userRepository,
-            IVehicleRepository vehicleRepository) : base(repository)
+            IVehicleRepository vehicleRepository, 
+            IUserCartRepository userCartRepository) : base(repository)
         {
             _repository = repository;
             _asyncQueryableExecuter = asyncQueryableExecuter;
             _userRepository = userRepository;
             _vehicleRepository = vehicleRepository;
+            _userCartRepository = userCartRepository;
         }
 
         public async Task<PagedResultDto<UserTransactionResponse>> GetByUserPagedListAsync(SearchUserTransactionRequest request, PagedAndSortedResultRequestDto pageRequest)
@@ -113,15 +116,16 @@ namespace Datn.ApiManagement.Services
             }
         }
 
-        public async Task<UserTransactionResponse> CreatesAsync(UserTransactionRequest input)
+        public override async Task<UserTransactionResponse> CreateAsync(UserTransactionRequest input)
         {
             try
             {
                 var query = _repository.GetList();
-                var vehicleList = _vehicleRepository.GetList();
+                var vehicleList = await _vehicleRepository.GetListAsync();
                 var toList = await _asyncQueryableExecuter.ToListAsync(query);
                 var entity = base.MapToEntity(input);
                 double depositCosted = 0;
+                double totalCost = 0;
 
                 EntityHelper.TrySetId(entity, GuidGenerator.Create);
                 entity.Code = CodeAutoGenerationHelper.GetNextCode<UserTransaction>(toList, "TS", 4);
@@ -129,13 +133,21 @@ namespace Datn.ApiManagement.Services
                 foreach (var item in entity.UserTransactionVehicles)
                 {
                     EntityHelper.TrySetId(item, GuidGenerator.Create);
-                    item.VehicleId = entity.Id;
+                    item.UserTransactionId = entity.Id;
                     var vehicle = vehicleList.FirstOrDefault(x => x.Id == item.VehicleId);
-                    if (vehicle != null) depositCosted += vehicle.DepositPrice;
+                    if (vehicle != null)
+                    {
+                        depositCosted += vehicle.DepositPrice;
+                        totalCost += vehicle.RentalPrice;
+                    }
                 }
 
-                entity.DepositCosted = depositCosted;
+                entity.DepositCosted = depositCosted* entity.TotalDays;
+                entity.TotalCost = totalCost * entity.TotalDays;
+                entity.ReturnedVehicleDate = entity.ReceivedVehicleDate.AddDays(entity.TotalDays);
+
                 await _repository.InsertAsync(entity);
+                await _userCartRepository.DeleteMultipleByUserId(entity.UserId);
                 var result = ObjectMapper.Map<UserTransaction, UserTransactionResponse>(entity);
                 return result;
             }

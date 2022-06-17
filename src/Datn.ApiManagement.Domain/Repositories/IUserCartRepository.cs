@@ -17,5 +17,7 @@ namespace Datn.ApiManagement.Repositories
         Task UpdateMultiple(List<UserCart> userCarts);
 
         Task DeleteMultiple(List<UserCart> userCarts);
+
+        Task DeleteMultipleByUserId(Guid userId);
     }
 }

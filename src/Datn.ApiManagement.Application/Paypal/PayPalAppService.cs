@@ -73,8 +73,8 @@ namespace Datn.ApiManagement.Services
                 intent = "sale",
                 redirect_urls = new
                 {
-                    return_url = "https://localhost:44383/api/paypals/payment/success",
-                    cancel_url = "https://localhost:44383/user-cart"
+                    return_url = "http://localhost:3000/cart/success",
+                    cancel_url = "https://localhost:3000/cart"
                 },
                 payer = new {payment_method = "paypal", },
                 transactions = JArray.FromObject(new[]

@@ -45,4 +45,13 @@ public class UserCartRepository : EfCoreRepository<IApiManagementDbContext, User
 
         await DbContext.SaveChangesAsync();
     }
+
+    public async Task DeleteMultipleByUserId(Guid userId)
+    {
+        var list = DbContext.UserCarts.Where(x => x.UserId == userId).ToList();
+
+        DbContext.UserCarts.RemoveRange(list);
+
+        await DbContext.SaveChangesAsync();
+    }
 }
