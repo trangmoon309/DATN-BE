@@ -11,6 +11,10 @@ namespace Datn.ApiManagement.Entities
 
         public Guid VehicleTypeDetailId { get; set; }
 
+        public string Description { get; set; }
+
+        public string Value { get; set; }
+
         public Vehicle Vehicle { get; set; }
 
         public VehicleTypeDetail VehicleTypeDetail { get; set; }

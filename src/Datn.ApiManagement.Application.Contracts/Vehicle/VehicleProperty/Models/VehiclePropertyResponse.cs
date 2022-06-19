@@ -11,6 +11,10 @@ namespace Datn.ApiManagement.Models
 
         public Guid VehicleTypeDetailId { get; set; }
 
+        public string Description { get; set; }
+
+        public string Value { get; set; }
+
         public VehicleTypeDetailResponse VehicleTypeDetail { get; set; }
     }
 }

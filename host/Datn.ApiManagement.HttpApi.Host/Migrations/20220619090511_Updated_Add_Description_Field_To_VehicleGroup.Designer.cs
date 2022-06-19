@@ -3,6 +3,7 @@ using System;
 using Datn.ApiManagement.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Volo.Abp.EntityFrameworkCore;
@@ -12,9 +13,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Datn.ApiManagement.Migrations
 {
     [DbContext(typeof(ApiManagementHttpApiHostMigrationsDbContext))]
-    partial class ApiManagementHttpApiHostMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220619090511_Updated_Add_Description_Field_To_VehicleGroup")]
+    partial class Updated_Add_Description_Field_To_VehicleGroup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
