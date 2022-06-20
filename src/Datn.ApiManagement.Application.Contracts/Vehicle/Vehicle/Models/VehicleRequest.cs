@@ -10,9 +10,15 @@ namespace Datn.ApiManagement.Models
 
         public Guid VehicleLineId { get; set; }
 
+        public string VehicleLineName { get; set; }
+
+        public string VehicleTypeName { get; set; }
+
         public string Code { get; set; }
 
         public string Name { get; set; }
+
+        public string Description { get; set; }
 
         public string Color { get; set; }
 
@@ -36,6 +42,10 @@ namespace Datn.ApiManagement.Models
         public Guid VehicleLineId { get; set; }
 
         public string Code { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
 
         public string Color { get; set; }
 

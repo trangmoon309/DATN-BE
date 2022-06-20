@@ -10,6 +10,8 @@ namespace Datn.ApiManagement.Models
 
         public string Description { get; set; }
 
+        public string VehiclePropertyName { get; set; }
+
         public string Value { get; set; }
     }
 
