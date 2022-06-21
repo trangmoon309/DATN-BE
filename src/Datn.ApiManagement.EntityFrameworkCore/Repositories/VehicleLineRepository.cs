@@ -31,5 +31,12 @@ namespace Datn.ApiManagement.Repositories
         {
             return GetQueryable().Where(x => !x.IsDeleted && x.Id == id);
         }
+
+        public async Task CreateMultiple(List<VehicleLine> list)
+        {
+            await DbContext.VehicleLines.AddRangeAsync(list);
+
+            await DbContext.SaveChangesAsync();
+        }
     }
 }

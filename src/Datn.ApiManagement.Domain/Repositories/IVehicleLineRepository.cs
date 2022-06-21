@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
 namespace Datn.ApiManagement.Repositories
@@ -14,5 +15,7 @@ namespace Datn.ApiManagement.Repositories
         IQueryable<VehicleLine> GetList();
 
         IQueryable<VehicleLine> GetById(Guid id);
+
+        Task CreateMultiple(List<VehicleLine> list);
     }
 }

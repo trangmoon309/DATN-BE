@@ -7,10 +7,9 @@ namespace Datn.ApiManagement.MockDatas
 {
     public static class VehicleMock
     {
-        public static List<VehicleTypeRequest> VehicleType()
+        public static List<VehicleTypeRequest> VehicleTypes = new List<VehicleTypeRequest>()
         {
-            return new List<VehicleTypeRequest>()
-            {
+                //Motor Scooter
                 new VehicleTypeRequest()
                 {
                     Name = "Motor Scooter",
@@ -78,6 +77,8 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //Sport Bike
                 new VehicleTypeRequest()
                 {
                     Name = "Sport Bike",
@@ -131,6 +132,8 @@ namespace Datn.ApiManagement.MockDatas
 
                     }
                 },
+
+                //Super Bike
                 new VehicleTypeRequest()
                 {
                     Name = "Super Bike",
@@ -184,6 +187,8 @@ namespace Datn.ApiManagement.MockDatas
 
                     }
                 },
+
+                //Electric Bike
                 new VehicleTypeRequest()
                 {
                     Name = "Electric Bike",
@@ -237,6 +242,8 @@ namespace Datn.ApiManagement.MockDatas
 
                     }
                 },
+
+                //Motor Cruiser
                 new VehicleTypeRequest()
                 {
                     Name = "Motor Cruiser",
@@ -250,6 +257,8 @@ namespace Datn.ApiManagement.MockDatas
 
                     }
                 },
+
+                //Lightweight Bike
                 new VehicleTypeRequest()
                 {
                     Name = "Lightweight Bike",
@@ -263,6 +272,8 @@ namespace Datn.ApiManagement.MockDatas
 
                     }
                 },
+
+                //Micro
                 new VehicleTypeRequest()
                 {
                     Name = "Micro",
@@ -305,6 +316,8 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //Sedan
                 new VehicleTypeRequest()
                 {
                     Name = "Sedan",
@@ -492,6 +505,8 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //Hatchback
                 new VehicleTypeRequest()
                 {
                     Name = "Hatchback",
@@ -679,6 +694,8 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //CUV
                 new VehicleTypeRequest()
                 {
                     Name = "CUV",
@@ -866,6 +883,8 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //SUV
                 new VehicleTypeRequest()
                 {
                     //xe thể thao đa dụng
@@ -1054,6 +1073,8 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //Couple
                 new VehicleTypeRequest()
                 {
                     //xe thể thao đa dụng
@@ -1242,6 +1263,8 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //Sports car
                 new VehicleTypeRequest()
                 {
                     //xe thể thao đa dụng
@@ -1430,6 +1453,8 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //Supercar
                 new VehicleTypeRequest()
                 {
                     //xe thể thao đa dụng
@@ -1618,6 +1643,388 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //SuperCrew
+                new VehicleTypeRequest()
+                {
+                    //xe thể thao đa dụng
+                    Name = "Supercrew",
+                    VehicleTypeDetails = new List<VehicleTypeDetailRequest>()
+                    {
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Three-box configuration",
+                            Description = "Three-box configuration with separate compartments for an engine, passengers, and cargo.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Heated seats",
+                            Description = "Heated seats have an internal thermostat that maintains the seat's heat and limits how hot the seat gets during use.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Blind-spot monitoring",
+                            Description = "The blind spot monitor or blind-spot monitoring is a vehicle-based sensor device that detects other vehicles located to the driver's side and rear.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Rear parking sensors",
+                            Description = "The rear sensors can normally detect objects much further away than the front sensors.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "AWD",
+                            Description = "AWD is optimized for on-road use. It has the capability to send the engine's power to all four tires all of the time.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Lane-departure warning",
+                            Description = "Lane departure warning is designed to help you avoid crashes due to drifting or departing your lane.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Apple CarPlay",
+                            Description = "You can get directions, make calls, send and receive messages, and enjoy your favorite music.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Android Auto",
+                            Description = "You can get directions, make calls, send and receive messages, and enjoy your favorite music.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "LED lights car",
+                            Description = "LED headlights are bright white and vastly improve nighttime visibility.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Memory driver's seat",
+                            Description = "Save your favourite seating position in the vehicles memory and you can recall that position anytime with the push of a button.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Augmented reality head-up display",
+                            Description = "This generation of HUDs supplements the exterior view of the traffic conditions in front of the vehicle with virtual information (augmentations) for the driver.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Fully-autonomous",
+                            Description = "A fully autonomous car would be self-aware and capable of making its own choices.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Leather seats",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Sunroof",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Moonroof",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Heated seats",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Backup camera",
+                            Description = "Back-up cameras help you see objects directly behind you while backing.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Navigation system",
+                            Description = "Route planning and waypoints. Planning a route is the easiest and most basic thing a navigation system should be able to do.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Bluetooth",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Remote start",
+                            Description = "Smartphone start-up option available.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Third-row seating",
+                            Description = "Using the third row as a cargo hold is possible in most mid- and full-size SUVs.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "CBS",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "ABS",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Reverse sensing system",
+                            Description = "The reverse sensors work by emitting audible beeps when it detects that something is behind you.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "AirBags",
+                            Description = "An airbag is a vehicle occupant-restraint system using a bag designed to inflate extremely quickly, then quickly deflate during a collision.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Adjustable comforts",
+                            Description = "Adjustable wheel so that driver can be more comfortable. ",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Traction Control",
+                            Description = "Traction control is an active safety feature that helps to keep traction between the tires and the road in slippery or dangerous conditions. .",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Automatic emergency braking",
+                            Description = "A safety system that can identify when a possible collision is about to occur and responds by autonomously activating the brakes to slow a vehicle prior to impact or bring it to a stop to avoid a collision..",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Forward collision warning",
+                            Description = "Warn you of an impending collision by detecting stopped or slowly moved vehicles ahead of your vehicle.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Automatic high beams",
+                            Description = "Automatic high-beam systems depend on a forward-looking camera mounted in the rearview mirror.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Auto-dimming mirrors",
+                            Description = "Auto dimming mirrors are the special type of rear view mirrors that have the capability to dim the light reflecting from their surface.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Fast USR charging",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Keyless entry",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "SmartKey",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Wifi hotspot",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Wireless chargin pad",
+                            Description = "",
+                        }
+                    }
+                },
+
+                //SuperCab
+                new VehicleTypeRequest()
+                {
+                    //xe thể thao đa dụng
+                    Name = "SuperCab",
+                    VehicleTypeDetails = new List<VehicleTypeDetailRequest>()
+                    {
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Three-box configuration",
+                            Description = "Three-box configuration with separate compartments for an engine, passengers, and cargo.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Heated seats",
+                            Description = "Heated seats have an internal thermostat that maintains the seat's heat and limits how hot the seat gets during use.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Blind-spot monitoring",
+                            Description = "The blind spot monitor or blind-spot monitoring is a vehicle-based sensor device that detects other vehicles located to the driver's side and rear.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Rear parking sensors",
+                            Description = "The rear sensors can normally detect objects much further away than the front sensors.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "AWD",
+                            Description = "AWD is optimized for on-road use. It has the capability to send the engine's power to all four tires all of the time.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Lane-departure warning",
+                            Description = "Lane departure warning is designed to help you avoid crashes due to drifting or departing your lane.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Apple CarPlay",
+                            Description = "You can get directions, make calls, send and receive messages, and enjoy your favorite music.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Android Auto",
+                            Description = "You can get directions, make calls, send and receive messages, and enjoy your favorite music.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "LED lights car",
+                            Description = "LED headlights are bright white and vastly improve nighttime visibility.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Memory driver's seat",
+                            Description = "Save your favourite seating position in the vehicles memory and you can recall that position anytime with the push of a button.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Augmented reality head-up display",
+                            Description = "This generation of HUDs supplements the exterior view of the traffic conditions in front of the vehicle with virtual information (augmentations) for the driver.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Fully-autonomous",
+                            Description = "A fully autonomous car would be self-aware and capable of making its own choices.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Leather seats",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Sunroof",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Moonroof",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Heated seats",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Backup camera",
+                            Description = "Back-up cameras help you see objects directly behind you while backing.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Navigation system",
+                            Description = "Route planning and waypoints. Planning a route is the easiest and most basic thing a navigation system should be able to do.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Bluetooth",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Remote start",
+                            Description = "Smartphone start-up option available.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Third-row seating",
+                            Description = "Using the third row as a cargo hold is possible in most mid- and full-size SUVs.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "CBS",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "ABS",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Reverse sensing system",
+                            Description = "The reverse sensors work by emitting audible beeps when it detects that something is behind you.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "AirBags",
+                            Description = "An airbag is a vehicle occupant-restraint system using a bag designed to inflate extremely quickly, then quickly deflate during a collision.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Adjustable comforts",
+                            Description = "Adjustable wheel so that driver can be more comfortable. ",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Traction Control",
+                            Description = "Traction control is an active safety feature that helps to keep traction between the tires and the road in slippery or dangerous conditions. .",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Automatic emergency braking",
+                            Description = "A safety system that can identify when a possible collision is about to occur and responds by autonomously activating the brakes to slow a vehicle prior to impact or bring it to a stop to avoid a collision..",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Forward collision warning",
+                            Description = "Warn you of an impending collision by detecting stopped or slowly moved vehicles ahead of your vehicle.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Automatic high beams",
+                            Description = "Automatic high-beam systems depend on a forward-looking camera mounted in the rearview mirror.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Auto-dimming mirrors",
+                            Description = "Auto dimming mirrors are the special type of rear view mirrors that have the capability to dim the light reflecting from their surface.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Fast USR charging",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Keyless entry",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "SmartKey",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Wifi hotspot",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Wireless chargin pad",
+                            Description = "",
+                        }
+                    }
+                },
+
+                //Carbiolet
                 new VehicleTypeRequest()
                 {
                     Name = "Carbiolet",
@@ -1805,9 +2212,11 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //Coupe
                 new VehicleTypeRequest()
                 {
-                    Name = "Couple",
+                    Name = "Coupe",
                     VehicleTypeDetails = new List<VehicleTypeDetailRequest>()
                     {
                         new VehicleTypeDetailRequest()
@@ -1992,6 +2401,386 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //Luxury
+                new VehicleTypeRequest()
+                {
+                    Name = "Luxury",
+                    VehicleTypeDetails = new List<VehicleTypeDetailRequest>()
+                    {
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Three-box configuration",
+                            Description = "Three-box configuration with separate compartments for an engine, passengers, and cargo.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Heated seats",
+                            Description = "Heated seats have an internal thermostat that maintains the seat's heat and limits how hot the seat gets during use.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Blind-spot monitoring",
+                            Description = "The blind spot monitor or blind-spot monitoring is a vehicle-based sensor device that detects other vehicles located to the driver's side and rear.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Rear parking sensors",
+                            Description = "The rear sensors can normally detect objects much further away than the front sensors.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "AWD",
+                            Description = "AWD is optimized for on-road use. It has the capability to send the engine's power to all four tires all of the time.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Lane-departure warning",
+                            Description = "Lane departure warning is designed to help you avoid crashes due to drifting or departing your lane.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Apple CarPlay",
+                            Description = "You can get directions, make calls, send and receive messages, and enjoy your favorite music.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Android Auto",
+                            Description = "You can get directions, make calls, send and receive messages, and enjoy your favorite music.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "LED lights car",
+                            Description = "LED headlights are bright white and vastly improve nighttime visibility.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Memory driver's seat",
+                            Description = "Save your favourite seating position in the vehicles memory and you can recall that position anytime with the push of a button.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Augmented reality head-up display",
+                            Description = "This generation of HUDs supplements the exterior view of the traffic conditions in front of the vehicle with virtual information (augmentations) for the driver.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Fully-autonomous",
+                            Description = "A fully autonomous car would be self-aware and capable of making its own choices.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Leather seats",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Sunroof",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Moonroof",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Heated seats",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Backup camera",
+                            Description = "Back-up cameras help you see objects directly behind you while backing.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Navigation system",
+                            Description = "Route planning and waypoints. Planning a route is the easiest and most basic thing a navigation system should be able to do.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Bluetooth",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Remote start",
+                            Description = "Smartphone start-up option available.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Third-row seating",
+                            Description = "Using the third row as a cargo hold is possible in most mid- and full-size SUVs.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "CBS",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "ABS",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Reverse sensing system",
+                            Description = "The reverse sensors work by emitting audible beeps when it detects that something is behind you.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "AirBags",
+                            Description = "An airbag is a vehicle occupant-restraint system using a bag designed to inflate extremely quickly, then quickly deflate during a collision.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Adjustable comforts",
+                            Description = "Adjustable wheel so that driver can be more comfortable. ",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Traction Control",
+                            Description = "Traction control is an active safety feature that helps to keep traction between the tires and the road in slippery or dangerous conditions. .",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Automatic emergency braking",
+                            Description = "A safety system that can identify when a possible collision is about to occur and responds by autonomously activating the brakes to slow a vehicle prior to impact or bring it to a stop to avoid a collision..",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Forward collision warning",
+                            Description = "Warn you of an impending collision by detecting stopped or slowly moved vehicles ahead of your vehicle.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Automatic high beams",
+                            Description = "Automatic high-beam systems depend on a forward-looking camera mounted in the rearview mirror.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Auto-dimming mirrors",
+                            Description = "Auto dimming mirrors are the special type of rear view mirrors that have the capability to dim the light reflecting from their surface.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Fast USR charging",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Keyless entry",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "SmartKey",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Wifi hotspot",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Wireless chargin pad",
+                            Description = "",
+                        }
+                    }
+                },
+
+                //Compact
+                new VehicleTypeRequest()
+                {
+                    Name = "Compact",
+                    VehicleTypeDetails = new List<VehicleTypeDetailRequest>()
+                    {
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Three-box configuration",
+                            Description = "Three-box configuration with separate compartments for an engine, passengers, and cargo.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Heated seats",
+                            Description = "Heated seats have an internal thermostat that maintains the seat's heat and limits how hot the seat gets during use.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Blind-spot monitoring",
+                            Description = "The blind spot monitor or blind-spot monitoring is a vehicle-based sensor device that detects other vehicles located to the driver's side and rear.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Rear parking sensors",
+                            Description = "The rear sensors can normally detect objects much further away than the front sensors.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "AWD",
+                            Description = "AWD is optimized for on-road use. It has the capability to send the engine's power to all four tires all of the time.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Lane-departure warning",
+                            Description = "Lane departure warning is designed to help you avoid crashes due to drifting or departing your lane.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Apple CarPlay",
+                            Description = "You can get directions, make calls, send and receive messages, and enjoy your favorite music.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Android Auto",
+                            Description = "You can get directions, make calls, send and receive messages, and enjoy your favorite music.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "LED lights car",
+                            Description = "LED headlights are bright white and vastly improve nighttime visibility.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Memory driver's seat",
+                            Description = "Save your favourite seating position in the vehicles memory and you can recall that position anytime with the push of a button.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Augmented reality head-up display",
+                            Description = "This generation of HUDs supplements the exterior view of the traffic conditions in front of the vehicle with virtual information (augmentations) for the driver.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Fully-autonomous",
+                            Description = "A fully autonomous car would be self-aware and capable of making its own choices.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Leather seats",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Sunroof",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Moonroof",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Heated seats",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Backup camera",
+                            Description = "Back-up cameras help you see objects directly behind you while backing.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Navigation system",
+                            Description = "Route planning and waypoints. Planning a route is the easiest and most basic thing a navigation system should be able to do.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Bluetooth",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Remote start",
+                            Description = "Smartphone start-up option available.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Third-row seating",
+                            Description = "Using the third row as a cargo hold is possible in most mid- and full-size SUVs.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "CBS",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "ABS",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Reverse sensing system",
+                            Description = "The reverse sensors work by emitting audible beeps when it detects that something is behind you.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "AirBags",
+                            Description = "An airbag is a vehicle occupant-restraint system using a bag designed to inflate extremely quickly, then quickly deflate during a collision.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Adjustable comforts",
+                            Description = "Adjustable wheel so that driver can be more comfortable. ",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Traction Control",
+                            Description = "Traction control is an active safety feature that helps to keep traction between the tires and the road in slippery or dangerous conditions. .",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Automatic emergency braking",
+                            Description = "A safety system that can identify when a possible collision is about to occur and responds by autonomously activating the brakes to slow a vehicle prior to impact or bring it to a stop to avoid a collision..",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Forward collision warning",
+                            Description = "Warn you of an impending collision by detecting stopped or slowly moved vehicles ahead of your vehicle.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Automatic high beams",
+                            Description = "Automatic high-beam systems depend on a forward-looking camera mounted in the rearview mirror.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Auto-dimming mirrors",
+                            Description = "Auto dimming mirrors are the special type of rear view mirrors that have the capability to dim the light reflecting from their surface.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Fast USR charging",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Keyless entry",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "SmartKey",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Wifi hotspot",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Wireless chargin pad",
+                            Description = "",
+                        }
+                    }
+                },
+
+                //Roadster
                 new VehicleTypeRequest()
                 {
                     Name = "Roadster",
@@ -2179,6 +2968,8 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //Pick-up Truck
                 new VehicleTypeRequest()
                 {
                     Name = "Pick-up Truck",
@@ -2366,6 +3157,386 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //Crew Cab
+                new VehicleTypeRequest()
+                {
+                    Name = "Crew Cab",
+                    VehicleTypeDetails = new List<VehicleTypeDetailRequest>()
+                    {
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Three-box configuration",
+                            Description = "Three-box configuration with separate compartments for an engine, passengers, and cargo.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Heated seats",
+                            Description = "Heated seats have an internal thermostat that maintains the seat's heat and limits how hot the seat gets during use.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Blind-spot monitoring",
+                            Description = "The blind spot monitor or blind-spot monitoring is a vehicle-based sensor device that detects other vehicles located to the driver's side and rear.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Rear parking sensors",
+                            Description = "The rear sensors can normally detect objects much further away than the front sensors.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "AWD",
+                            Description = "AWD is optimized for on-road use. It has the capability to send the engine's power to all four tires all of the time.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Lane-departure warning",
+                            Description = "Lane departure warning is designed to help you avoid crashes due to drifting or departing your lane.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Apple CarPlay",
+                            Description = "You can get directions, make calls, send and receive messages, and enjoy your favorite music.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Android Auto",
+                            Description = "You can get directions, make calls, send and receive messages, and enjoy your favorite music.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "LED lights car",
+                            Description = "LED headlights are bright white and vastly improve nighttime visibility.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Memory driver's seat",
+                            Description = "Save your favourite seating position in the vehicles memory and you can recall that position anytime with the push of a button.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Augmented reality head-up display",
+                            Description = "This generation of HUDs supplements the exterior view of the traffic conditions in front of the vehicle with virtual information (augmentations) for the driver.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Fully-autonomous",
+                            Description = "A fully autonomous car would be self-aware and capable of making its own choices.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Leather seats",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Sunroof",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Moonroof",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Heated seats",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Backup camera",
+                            Description = "Back-up cameras help you see objects directly behind you while backing.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Navigation system",
+                            Description = "Route planning and waypoints. Planning a route is the easiest and most basic thing a navigation system should be able to do.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Bluetooth",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Remote start",
+                            Description = "Smartphone start-up option available.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Third-row seating",
+                            Description = "Using the third row as a cargo hold is possible in most mid- and full-size SUVs.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "CBS",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "ABS",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Reverse sensing system",
+                            Description = "The reverse sensors work by emitting audible beeps when it detects that something is behind you.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "AirBags",
+                            Description = "An airbag is a vehicle occupant-restraint system using a bag designed to inflate extremely quickly, then quickly deflate during a collision.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Adjustable comforts",
+                            Description = "Adjustable wheel so that driver can be more comfortable. ",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Traction Control",
+                            Description = "Traction control is an active safety feature that helps to keep traction between the tires and the road in slippery or dangerous conditions. .",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Automatic emergency braking",
+                            Description = "A safety system that can identify when a possible collision is about to occur and responds by autonomously activating the brakes to slow a vehicle prior to impact or bring it to a stop to avoid a collision..",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Forward collision warning",
+                            Description = "Warn you of an impending collision by detecting stopped or slowly moved vehicles ahead of your vehicle.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Automatic high beams",
+                            Description = "Automatic high-beam systems depend on a forward-looking camera mounted in the rearview mirror.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Auto-dimming mirrors",
+                            Description = "Auto dimming mirrors are the special type of rear view mirrors that have the capability to dim the light reflecting from their surface.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Fast USR charging",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Keyless entry",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "SmartKey",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Wifi hotspot",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Wireless chargin pad",
+                            Description = "",
+                        }
+                    }
+                },
+
+                //Truck
+                new VehicleTypeRequest()
+                {
+                    Name = "Truck",
+                    VehicleTypeDetails = new List<VehicleTypeDetailRequest>()
+                    {
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Three-box configuration",
+                            Description = "Three-box configuration with separate compartments for an engine, passengers, and cargo.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Heated seats",
+                            Description = "Heated seats have an internal thermostat that maintains the seat's heat and limits how hot the seat gets during use.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Blind-spot monitoring",
+                            Description = "The blind spot monitor or blind-spot monitoring is a vehicle-based sensor device that detects other vehicles located to the driver's side and rear.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Rear parking sensors",
+                            Description = "The rear sensors can normally detect objects much further away than the front sensors.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "AWD",
+                            Description = "AWD is optimized for on-road use. It has the capability to send the engine's power to all four tires all of the time.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Lane-departure warning",
+                            Description = "Lane departure warning is designed to help you avoid crashes due to drifting or departing your lane.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Apple CarPlay",
+                            Description = "You can get directions, make calls, send and receive messages, and enjoy your favorite music.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Android Auto",
+                            Description = "You can get directions, make calls, send and receive messages, and enjoy your favorite music.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "LED lights car",
+                            Description = "LED headlights are bright white and vastly improve nighttime visibility.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Memory driver's seat",
+                            Description = "Save your favourite seating position in the vehicles memory and you can recall that position anytime with the push of a button.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Augmented reality head-up display",
+                            Description = "This generation of HUDs supplements the exterior view of the traffic conditions in front of the vehicle with virtual information (augmentations) for the driver.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Fully-autonomous",
+                            Description = "A fully autonomous car would be self-aware and capable of making its own choices.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Leather seats",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Sunroof",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Moonroof",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Heated seats",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Backup camera",
+                            Description = "Back-up cameras help you see objects directly behind you while backing.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Navigation system",
+                            Description = "Route planning and waypoints. Planning a route is the easiest and most basic thing a navigation system should be able to do.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Bluetooth",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Remote start",
+                            Description = "Smartphone start-up option available.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Third-row seating",
+                            Description = "Using the third row as a cargo hold is possible in most mid- and full-size SUVs.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "CBS",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "ABS",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Reverse sensing system",
+                            Description = "The reverse sensors work by emitting audible beeps when it detects that something is behind you.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "AirBags",
+                            Description = "An airbag is a vehicle occupant-restraint system using a bag designed to inflate extremely quickly, then quickly deflate during a collision.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Adjustable comforts",
+                            Description = "Adjustable wheel so that driver can be more comfortable. ",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Traction Control",
+                            Description = "Traction control is an active safety feature that helps to keep traction between the tires and the road in slippery or dangerous conditions. .",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Automatic emergency braking",
+                            Description = "A safety system that can identify when a possible collision is about to occur and responds by autonomously activating the brakes to slow a vehicle prior to impact or bring it to a stop to avoid a collision..",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Forward collision warning",
+                            Description = "Warn you of an impending collision by detecting stopped or slowly moved vehicles ahead of your vehicle.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Automatic high beams",
+                            Description = "Automatic high-beam systems depend on a forward-looking camera mounted in the rearview mirror.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Auto-dimming mirrors",
+                            Description = "Auto dimming mirrors are the special type of rear view mirrors that have the capability to dim the light reflecting from their surface.",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Fast USR charging",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Keyless entry",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "SmartKey",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Wifi hotspot",
+                            Description = "",
+                        },
+                        new VehicleTypeDetailRequest()
+                        {
+                            Name = "Wireless chargin pad",
+                            Description = "",
+                        }
+                    }
+                },
+
+                //Saloon
                 new VehicleTypeRequest()
                 {
                     Name = "Saloon",
@@ -2553,6 +3724,8 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //Van
                 new VehicleTypeRequest()
                 {
                     Name = "Van",
@@ -2740,6 +3913,8 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
+
+                //Limousine
                 new VehicleTypeRequest()
                 {
                     Name = "Limousine",
@@ -2927,8 +4102,7 @@ namespace Datn.ApiManagement.MockDatas
                         }
                     }
                 },
-            };
-        }
+        };
 
         public static List<VehicleLineRequest> VehicleLine()
         {

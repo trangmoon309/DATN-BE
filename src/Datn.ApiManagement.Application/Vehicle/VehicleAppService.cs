@@ -78,7 +78,7 @@ namespace Datn.ApiManagement.Services
                 var entity = base.MapToEntity(input);
 
                 EntityHelper.TrySetId(entity, GuidGenerator.Create);
-                entity.Code = CodeAutoGenerationHelper.GetNextCode<Vehicle>(toList, "V", 4);
+                entity.Code = CodeAutoGenerationHelper.GetNextCode<Vehicle>(toList, "V", 5);
 
                 foreach (var item in entity.VehicleProperties)
                 {

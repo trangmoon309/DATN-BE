@@ -17,5 +17,7 @@ namespace Datn.ApiManagement.Repositories
         Task<Vehicle> UpdateMasterAsync(Vehicle vehicle);
 
         IQueryable<Vehicle> GetById(Guid id);
+
+        Task CreateMultiple(List<Vehicle> list);
     }
 }
