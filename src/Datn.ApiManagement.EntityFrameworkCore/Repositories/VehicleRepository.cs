@@ -42,11 +42,11 @@ namespace Datn.ApiManagement.Repositories
                 .AsNoTracking();
         }
 
-        public async Task CreateMultiple(List<Vehicle> list)
+        public void CreateMultiple(List<Vehicle> list)
         {
-            await DbContext.Vehicles.AddRangeAsync(list);
+            DbContext.Vehicles.AddRange(list);
 
-            await DbContext.SaveChangesAsync();
+            DbContext.SaveChanges();
         }
 
         public async Task<Vehicle> UpdateMasterAsync(Vehicle vehicle)

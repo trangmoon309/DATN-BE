@@ -18,6 +18,6 @@ namespace Datn.ApiManagement.Repositories
 
         IQueryable<Vehicle> GetById(Guid id);
 
-        Task CreateMultiple(List<Vehicle> list);
+        void CreateMultiple(List<Vehicle> list);
     }
 }
