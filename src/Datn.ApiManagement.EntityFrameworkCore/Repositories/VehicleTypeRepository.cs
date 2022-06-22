@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -45,7 +46,7 @@ namespace Datn.ApiManagement.Repositories
             await DbContext.SaveChangesAsync();
         }
 
-        public async Task<VehicleType> UpdateMasterAsync(VehicleType vehicleType)
+        public async Task<VehicleType> UpdateMasterAsync(VehicleType vehicleType, List<Vehicle> vehicles)
         {
             var existingParent = await DbContext.VehicleTypes
                 .Where(p => p.Id == vehicleType.Id)
@@ -62,6 +63,10 @@ namespace Datn.ApiManagement.Repositories
                 {
                     if (!vehicleType.VehicleTypeDetails.Any(c => c.Id == existingChild.Id))
                     {
+                        if(vehicles.Any(v => v.VehicleProperties.FirstOrDefault(vp => vp.VehicleTypeDetailId == existingChild.Id) != null))
+                        {
+                            throw new Exception("Fail to delete: Property: " + existingChild.Name + " is currently used.");
+                        }
                         DbContext.VehicleTypeDetails.Remove(existingChild);
                     }
                 }

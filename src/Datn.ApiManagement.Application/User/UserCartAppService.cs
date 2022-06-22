@@ -25,11 +25,18 @@ namespace Datn.ApiManagement.Services
     {
         private readonly IUserCartRepository _repository;
         private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
+        private readonly IUserTransactionRepository _transactionRepository;
+        private readonly IVehicleRepository _vehicleRepository;
+
         public UserCartAppService(IUserCartRepository repository,
-            IAsyncQueryableExecuter asyncQueryableExecuter) : base(repository)
+            IAsyncQueryableExecuter asyncQueryableExecuter,
+            IUserTransactionRepository transactionRepository,
+            IVehicleRepository vehicleRepository) : base(repository)
         {
             _repository = repository;
             _asyncQueryableExecuter = asyncQueryableExecuter;
+            _transactionRepository = transactionRepository;
+            _vehicleRepository = vehicleRepository;
         }
 
         public async Task<PagedResultDto<UserCartResponse>> GetByUserPagedListAsync(Guid userId, PagedAndSortedResultRequestDto pageRequest)
@@ -59,6 +66,11 @@ namespace Datn.ApiManagement.Services
             try
             {
                 var query = _repository.GetListByUserId(userId);
+                var transactionList = await _asyncQueryableExecuter.ToListAsync(_transactionRepository.GetList());
+                var usingVehicleList = transactionList
+                .Where(x => (x.RentalStatus == Enums.Enums.RentalStatus.USING) || (x.RentalStatus == Enums.Enums.RentalStatus.WAITING))
+                .SelectMany(x => x.UserTransactionVehicles).ToList();
+                var vehicleList = await _vehicleRepository.GetListAsync();
 
                 query = query.OrderByDescending(x => x.CreationTime);
 
@@ -70,6 +82,13 @@ namespace Datn.ApiManagement.Services
                     var request = requests.Find(x => x.Id == item.Id);
                     if(request != null)
                     {
+                        var vehicle = vehicleList.FirstOrDefault(y => y.Id == item.VehicleId);
+                        var usingAmount = usingVehicleList.Where(y => y.VehicleId == vehicle.Id).Sum(y => y.Amount);
+                        if (item.Quantity > (vehicle.Amount - usingAmount))
+                        {
+                            throw new UserFriendlyException("Update Faild: The Vehicle " + vehicle.Name + " has not enough amount!");
+                        }
+
                         item.Quantity = request.Quantity;
                         updatedItems.Add(item);
                     }
@@ -78,7 +97,7 @@ namespace Datn.ApiManagement.Services
                         deletedItems.Add(item);
                     }
                 }
-
+               
                 if(updatedItems.Any()) await _repository.UpdateMultiple(updatedItems);
                 if (deletedItems.Any()) await _repository.DeleteMultiple(deletedItems);
 

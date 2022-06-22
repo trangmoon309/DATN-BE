@@ -28,13 +28,17 @@ namespace Datn.ApiManagement.Services
         private readonly IVehicleTypeRepository _repository;
         private readonly IVehiclePropertyRepository _propertyRepository;
         private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
+        private readonly IVehicleRepository _vehicleRepository;
+
         public VehicleTypeAppService(IVehicleTypeRepository repository,
-            IAsyncQueryableExecuter asyncQueryableExecuter, 
-            IVehiclePropertyRepository propertyRepository) : base(repository)
+            IAsyncQueryableExecuter asyncQueryableExecuter,
+            IVehiclePropertyRepository propertyRepository, 
+            IVehicleRepository vehicleRepository) : base(repository)
         {
             _repository = repository;
             _asyncQueryableExecuter = asyncQueryableExecuter;
             _propertyRepository = propertyRepository;
+            _vehicleRepository = vehicleRepository;
         }
 
         public async Task<PagedResultDto<VehicleTypeResponse>> GetPagedListAsync(string keyWord, PagedAndSortedResultRequestDto pageRequest)
@@ -90,8 +94,15 @@ namespace Datn.ApiManagement.Services
         public override async Task DeleteAsync(Guid id)
         {
             var entity = await _asyncQueryableExecuter.FirstOrDefaultAsync(_repository.GetById(id));
-            var props = await _asyncQueryableExecuter.ToListAsync(_propertyRepository.GetList());
-            if(entity == null)
+            var vehicles = await _asyncQueryableExecuter.ToListAsync(_vehicleRepository.GetList());
+            var props = vehicles.SelectMany(x => x.VehicleProperties).ToList();
+
+            if (vehicles.FirstOrDefault(x => x.VehicleTypeId == id) != null)
+            {
+                throw new UserFriendlyException("Deleted Faild: This Vehicle Type is being used!");
+            }
+
+            if (entity == null)
             {
                 if(entity.VehicleTypeDetails.Any())
                 {
@@ -109,18 +120,28 @@ namespace Datn.ApiManagement.Services
 
         public override async Task<VehicleTypeResponse> UpdateAsync(Guid id, UpdateVehicleTypeRequest input)
         {
-            var entity = await _asyncQueryableExecuter.FirstOrDefaultAsync(_repository.GetById(id));
-            MapToEntity(input, entity);
-
-            entity.VehicleTypeDetails.ForEach(x =>
+            try
             {
-                x.VehicleTypeId = id;
-                if (x.Id == null || x.Id == Guid.Empty) EntityHelper.TrySetId(x, GuidGenerator.Create);
-            });
+                var entity = await _asyncQueryableExecuter.FirstOrDefaultAsync(_repository.GetById(id));
+                var vehicles = await _asyncQueryableExecuter.ToListAsync(_vehicleRepository.GetList());
 
-            await _repository.UpdateMasterAsync(entity);
+                MapToEntity(input, entity);
 
-            return ObjectMapper.Map<VehicleType, VehicleTypeResponse>(entity);
+                entity.VehicleTypeDetails.ForEach(x =>
+                {
+                    x.VehicleTypeId = id;
+                    if (x.Id == null || x.Id == Guid.Empty) EntityHelper.TrySetId(x, GuidGenerator.Create);
+                });
+
+                await _repository.UpdateMasterAsync(entity, vehicles);
+
+                return ObjectMapper.Map<VehicleType, VehicleTypeResponse>(entity);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

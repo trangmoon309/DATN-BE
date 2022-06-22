@@ -27,11 +27,15 @@ namespace Datn.ApiManagement.Services
     {
         private readonly IVehicleLineRepository _repository;
         private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
+        private readonly IVehicleRepository _vehicleRepository;
+
         public VehicleLineAppService(IVehicleLineRepository repository,
-            IAsyncQueryableExecuter asyncQueryableExecuter) : base(repository)
+            IAsyncQueryableExecuter asyncQueryableExecuter, 
+            IVehicleRepository vehicleRepository) : base(repository)
         {
             _repository = repository;
             _asyncQueryableExecuter = asyncQueryableExecuter;
+            _vehicleRepository = vehicleRepository;
         }
         public async Task<PagedResultDto<VehicleLineResponse>> GetPagedListAsync(string keyWord, PagedAndSortedResultRequestDto pageRequest)
         {
@@ -75,6 +79,18 @@ namespace Datn.ApiManagement.Services
 
                 throw;
             }
+        }
+
+        public override async Task DeleteAsync(Guid id)
+        {
+            var vehicles = await _asyncQueryableExecuter.ToListAsync(_vehicleRepository.GetList());
+
+            if (vehicles.FirstOrDefault(x => x.VehicleLineId == id) != null)
+            {
+                throw new UserFriendlyException("Deleted Faild: This Vehicle Line is being used!");
+            }
+
+            await base.DeleteAsync(id);
         }
     }
 }

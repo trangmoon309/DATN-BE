@@ -123,6 +123,10 @@ namespace Datn.ApiManagement.Services
                 var query = _repository.GetList();
                 var vehicleList = await _vehicleRepository.GetListAsync();
                 var toList = await _asyncQueryableExecuter.ToListAsync(query);
+                var usingVehicleList = toList
+                    .Where(x => (x.RentalStatus == Enums.Enums.RentalStatus.USING) || (x.RentalStatus == Enums.Enums.RentalStatus.WAITING))
+                    .SelectMany(x => x.UserTransactionVehicles).ToList();
+
                 var entity = base.MapToEntity(input);
                 double depositCosted = 0;
                 double totalCost = 0;
@@ -135,8 +139,15 @@ namespace Datn.ApiManagement.Services
                     EntityHelper.TrySetId(item, GuidGenerator.Create);
                     item.UserTransactionId = entity.Id;
                     var vehicle = vehicleList.FirstOrDefault(x => x.Id == item.VehicleId);
+
                     if (vehicle != null)
                     {
+                        var usingAmount = usingVehicleList.Where(x => x.VehicleId == vehicle.Id).Sum(x => x.Amount);
+                        if (item.Amount > (vehicle.Amount - usingAmount))
+                        {
+                            throw new UserFriendlyException("Create Faild: The Vehicle " + vehicle.Name + " has not enough amount!");
+                        }
+
                         depositCosted += vehicle.DepositPrice;
                         totalCost += vehicle.RentalPrice;
                     }
@@ -161,13 +172,28 @@ namespace Datn.ApiManagement.Services
         {
             try
             {
+                var query = _repository.GetList();
+                var toList = await _asyncQueryableExecuter.ToListAsync(query);
                 var users = await _asyncQueryableExecuter.ToListAsync(_userRepository.GetList().Result);
+                var vehicleList = await _vehicleRepository.GetListAsync();
+                var usingVehicleList = toList
+                    .Where(x => (x.RentalStatus == Enums.Enums.RentalStatus.USING) || (x.RentalStatus == Enums.Enums.RentalStatus.WAITING))
+                    .SelectMany(x => x.UserTransactionVehicles).ToList();
+
                 var userReponses = ObjectMapper.Map<List<User>, List<UserResponse>>(users);
-                var entity = await _asyncQueryableExecuter.FirstOrDefaultAsync(_repository.GetById(id));
+                var entity = toList.FirstOrDefault(x => x.Id == id);
+
                 MapToEntity(input, entity);
 
                 entity.UserTransactionVehicles.ForEach(x =>
                 {
+                    var vehicle = vehicleList.FirstOrDefault(y => y.Id == x.VehicleId);
+                    var usingAmount = usingVehicleList.Where(y => y.VehicleId == vehicle.Id).Sum(y => y.Amount);
+                    if (x.Amount > (vehicle.Amount - usingAmount))
+                    {
+                        throw new UserFriendlyException("Update Faild: The Vehicle " + vehicle.Name + " has not enough amount!");
+                    }
+
                     x.UserTransactionId = id;
                     if (x.Id == null || x.Id == Guid.Empty) EntityHelper.TrySetId(x, GuidGenerator.Create);
                 });

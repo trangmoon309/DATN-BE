@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Datn.ApiManagement.Controllers
 {
@@ -49,18 +50,46 @@ namespace Datn.ApiManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAsync(UserTransactionRequest request)
         {
-            var result = await _service.CreateAsync(request);
+            try
+            {
+                var result = await _service.CreateAsync(request);
 
-            return CreatedAtAction(null, result);
+                return CreatedAtAction(null, result);
+            }
+            catch (Exception e)
+            {
+                var exceptionError = new ExceptionHandlingResponse();
+                exceptionError.ValidationErrors.Add(
+                        new ValidationErrorsResponse
+                        {
+                            Message = e.Message,
+                            Member = e.Source
+                        });
+                return StatusCode(StatusCodes.Status500InternalServerError, exceptionError);
+            }
         }
 
         [HttpPut]
         [Route("{id}")]
         public async Task<IActionResult> UpdateAsync(Guid id, UpdateUserTransactionRequest request)
         {
-            var result = await _service.UpdateAsync(id, request);
+            try
+            {
+                var result = await _service.UpdateAsync(id, request);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                var exceptionError = new ExceptionHandlingResponse();
+                exceptionError.ValidationErrors.Add(
+                        new ValidationErrorsResponse
+                        {
+                            Message = e.Message,
+                            Member = e.Source
+                        });
+                return StatusCode(StatusCodes.Status500InternalServerError, exceptionError);
+            }
         }
 
         [HttpDelete]
