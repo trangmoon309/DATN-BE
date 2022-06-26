@@ -80,8 +80,6 @@ This is a back-end project uses C# languages, ABP Framework to adapt trendy fram
   </ul>
 </details>
 
-<details>
-
 <!-- Features -->
 ### :dart: Features
 
