@@ -1,11 +1,100 @@
-# Api Management based on DDD Design Pattern using ABP Framework
+# Vehicle Rental Service api management
 
 This repository contains working code which defines all the API which used for "Vehicle Rental Service" project.
 
 This is a back-end project uses C# languages, ABP Framework to adapt trendy framework and design parttern
 
+<div align="center">
 
-## Running the Samples From the Command Line
+  <img src="https://avatars.githubusercontent.com/u/49202885?v=4" alt="logo" width="200" height="auto" />  
+  <p>
+    Vehicle Rental Service API
+  </p>
+<p>
+  <a href="https://github.com/trangmoon309">
+    <img src="https://img.shields.io/github/contributors/Louis3797/awesome-readme-template" alt="contributors" />
+  </a>
+  <a href="">
+    <img src="https://img.shields.io/github/last-commit/Louis3797/awesome-readme-template" alt="last update" />
+  </a>
+  <a href="https://github.com/Louis3797/awesome-readme-template/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/Louis3797/awesome-readme-template.svg" alt="license" />
+  </a>
+</p>
+
+<br />
+
+<!-- Table of Contents -->
+# :notebook_with_decorative_cover: Table of Contents
+
+- [About the Project](#star2-about-the-project)
+  * [Screenshots](#camera-screenshots)
+  * [Tech Stack](#space_invader-tech-stack)
+  * [Features](#dart-features)
+- [Getting Started](#toolbox-getting-started)
+  * [Installation](#gear-installation)
+  * [Run Locally](#running-run-locally)
+  * [Deployment](#triangular_flag_on_post-deployment)
+- [Contributing](#wave-contributing)
+  * [Code of Conduct](#scroll-code-of-conduct)
+- [Contact](#handshake-contact)
+- [Acknowledgements](#gem-acknowledgements)
+
+  
+
+<!-- About the Project -->
+## :star2: About the Project
+<p>
+    This is a project of me using to gradute university. It's contains all the APIs which used to manage my Rental Service website. 
+    This project is a website used to search favorites vehicle someone need to rent on some days for working or traveling.
+</p>
+
+<!-- TechStack -->
+### :space_invader: Tech Stack
+
+<details>
+  <summary>Client</summary>
+  <ul>
+    <li><a href="https://reactjs.org/">React.js</a></li>
+    <li><a href="https://redux.js.org/">Redux</a></li>
+  </ul>
+</details>
+
+<details>
+  <summary>Server</summary>
+  <ul>
+    <li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/">C#</a></li>
+    <li><a href="https://abp.io/">ABP Framework</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/ef/core/">EF Core</a></li>
+    <li><a href="https://identityserver4.readthedocs.io/en/latest/">Identity Server 4</a></li>
+    <li><a href="https://www.iis.net/">IIS Server</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-6.0&tabs=visual-studio">RESTful API</a></li>    
+  </ul>
+</details>
+
+<details>
+<summary>Database</summary>
+  <ul>
+    <li><a href="https://www.postgresql.org/">PostgreSQL</a></li>
+  </ul>
+</details>
+
+<details>
+
+<!-- Features -->
+### :dart: Features
+
+- Authentication Features
+- User Management
+- Permission Management
+- Vehicle Type Management
+- Vehicle Line Management
+- Vehicle Management
+- Paypal Payment
+- Recommend System based on Content-Base
+
+<!-- Getting Started -->
+## 	:toolbox: Getting Started
 * Clone this repository:
 ```
     $ git clone https://github.com/trangmoon309/DATN-BE.git
@@ -15,23 +104,32 @@ This is a back-end project uses C# languages, ABP Framework to adapt trendy fram
     PM> update-database
 ```
 
-<h3>Languages</h3>
-<p align=center>
-<img src="https://pluralsight.imgix.net/paths/path-icons/csharp-e7b8fcd4ce.png" />
-<img src="https://codelearnstorage.s3.amazonaws.com/Upload/Blog/react-js-co-ban-phan-1-63738082145.3856.jpg"/>
-</p>
+Clone the project
 
-<h3>Database</h3>
-<p align=center>
-<img src="https://www.ovhcloud.com/sites/default/files/styles/text_media_horizontal/public/2021-09/ECX-1909_Hero_PostgreSQL_600x400%402x.png" />
-</p>
+```bash
+  git clone https://github.com/trangmoon309/DATN-BE.git
+```
 
-<h3>3rd library</h3>
-<p align=center>
-<img src="https://repository-images.githubusercontent.com/46652227/40902000-8788-11e9-9e34-50b428f439cf" />
-</p>
+<!-- License -->
+## :warning: License
 
-<h3>Host</h3>
-<p align=center>
-<img src="https://www.mdsec.co.uk/wp-content/uploads/2020/02/iis.png" />
-</p>
+Distributed under the no License. See LICENSE.txt for more information.
+
+
+<!-- Contact -->
+## :handshake: Contact
+
+Huyh Phuong Trang - huynhphuongtrang309@gmail.com
+
+Project Link: [https://github.com/trangmoon309/DATN-BE.git](https://github.com/trangmoon309/DATN-BE.git)
+
+
+<!-- Acknowledgments -->
+## :gem: Acknowledgements
+
+Use this section to mention useful resources and libraries that you have used in your projects.
+
+ - [Shields.io](https://shields.io/)
+ - [Awesome README](https://github.com/matiassingers/awesome-readme)
+ - [Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md#travel--places)
+ - [Readme Template](https://github.com/othneildrew/Best-README-Template)
