@@ -18,6 +18,7 @@ public class UserTransactionRepository : EfCoreRepository<IApiManagementDbContex
     public IQueryable<UserTransaction> GetList()
     {
         return GetQueryable()
+            .Where(x => !x.IsDeleted)
             .Include(x => x.UserTransactionVehicles).ThenInclude(x => x.Vehicle);
     }
 
@@ -32,7 +33,7 @@ public class UserTransactionRepository : EfCoreRepository<IApiManagementDbContex
     public async Task<UserTransaction> UpdateMasterAsync(UserTransaction userTransaction)
     {
         var existingParent = await DbContext.UserTransactions
-            .Where(p => p.Id == userTransaction.Id)
+            .Where(p => !p.IsDeleted && p.Id == userTransaction.Id)
             .Include(x => x.UserTransactionVehicles)
             .FirstOrDefaultAsync();
 

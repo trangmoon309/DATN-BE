@@ -45,6 +45,18 @@ namespace Datn.ApiManagement.Services
             try
             {
                 var query = _repository.GetList();
+                var transactionList = await _asyncQueryableExecuter.ToListAsync(_transactionRepository.GetList());
+                var usingVehicleList = transactionList
+                .Where(x => (x.RentalStatus == Enums.Enums.RentalStatus.USING) || (x.RentalStatus == Enums.Enums.RentalStatus.WAITING))
+                .SelectMany(x => x.UserTransactionVehicles).ToList();
+
+                var runOutVehicles = usingVehicleList.GroupBy(x => x.VehicleId, (vehicleId, list) => new
+                UserTransactionVehicleGroupByVehicle
+                {
+                    VehicleId = vehicleId,
+                    UserTransactionVehicles = list.ToList(),
+                    IsVehicleRanOutOfAmount = list.Sum(x => x.Amount) >= list.FirstOrDefault().Vehicle.Amount
+                }).ToList().Select(x => x.VehicleId);
 
                 query = query.OrderByDescending(x => x.CreationTime);
 
@@ -52,6 +64,12 @@ namespace Datn.ApiManagement.Services
 
                 var toList = await _asyncQueryableExecuter.ToListAsync(query.Skip(pageRequest.SkipCount).Take(pageRequest.MaxResultCount));
                 var items = ObjectMapper.Map<List<UserCart>, List<UserCartResponse>>(toList);
+                items.ForEach(x =>
+                {
+                    if (runOutVehicles.Contains(x.VehicleId)) x.IsRanOut = true;
+                    else x.IsRanOut = false;
+                });
+
                 var total = query.Count();
 
                 return new PagedResultDto<UserCartResponse>(total, items);
@@ -106,7 +124,6 @@ namespace Datn.ApiManagement.Services
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

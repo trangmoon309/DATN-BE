@@ -13,6 +13,8 @@ namespace Datn.ApiManagement.Models
 
         public int Quantity { get; set; }
 
+        public bool IsRanOut { get; set; }
+
         public VehicleResponse Vehicle { get; set; }
     }
 }

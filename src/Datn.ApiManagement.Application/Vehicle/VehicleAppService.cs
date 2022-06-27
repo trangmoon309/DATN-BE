@@ -30,16 +30,18 @@ namespace Datn.ApiManagement.Services
         private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
         private readonly IVehicleImageAppService _vehiceImageAppService;
         private readonly IVehicleImageRepository _vehiceImageRepository;
-
+        private readonly IUserTransactionRepository _transactionRepository;
         public VehicleAppService(IVehicleRepository repository,
             IAsyncQueryableExecuter asyncQueryableExecuter,
-            IVehicleImageAppService vehiceImageAppService, 
-            IVehicleImageRepository vehiceImageRepository) : base(repository)
+            IVehicleImageAppService vehiceImageAppService,
+            IVehicleImageRepository vehiceImageRepository, 
+            IUserTransactionRepository transactionRepository) : base(repository)
         {
             _repository = repository;
             _asyncQueryableExecuter = asyncQueryableExecuter;
             _vehiceImageAppService = vehiceImageAppService;
             _vehiceImageRepository = vehiceImageRepository;
+            _transactionRepository = transactionRepository;
         }
 
         public async Task<PagedResultDto<VehicleResponse>> GetListByCondition(SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest)
@@ -47,8 +49,20 @@ namespace Datn.ApiManagement.Services
             try
             {
                 var query = _repository.GetList();
+                var transactionList = await _asyncQueryableExecuter.ToListAsync(_transactionRepository.GetList());
+                var usingVehicleList = transactionList
+                .Where(x => (x.RentalStatus == Enums.Enums.RentalStatus.USING) || (x.RentalStatus == Enums.Enums.RentalStatus.WAITING))
+                .SelectMany(x => x.UserTransactionVehicles).ToList();
 
-                query = query.OrderByDescending(x => x.CreationTime);
+                var runOutVehicles = usingVehicleList.GroupBy(x => x.VehicleId, (vehicleId, list) => new
+                UserTransactionVehicleGroupByVehicle
+                {
+                    VehicleId = vehicleId,
+                    UserTransactionVehicles = list.ToList(),
+                    IsVehicleRanOutOfAmount = list.Sum(x => x.Amount) >= list.FirstOrDefault().Vehicle.Amount
+                }).ToList().Select(x => x.VehicleId);
+
+                query = query.Where(x => !runOutVehicles.Contains(x.Id)).OrderByDescending(x => x.CreationTime); 
 
                 if (!request.KeyWord.IsNullOrEmpty()) query = _repository.SearchKeyWord(query, request.KeyWord);
 
