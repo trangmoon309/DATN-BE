@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Linq;
 
@@ -102,6 +103,30 @@ namespace Datn.ApiManagement.Services
                 if (deletedItems.Any()) await _repository.DeleteMultiple(deletedItems);
 
                 return ObjectMapper.Map<List<UserCart>, List<UserCartResponse>>(updatedItems);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public override async Task<UserCartResponse> CreateAsync(UserCartRequest input)
+        {
+            try
+            {
+                var toList = await _repository.GetListAsync();
+                var existedItem = toList.FirstOrDefault(x => !x.IsDeleted && x.UserId == input.UserId && x.VehicleId == input.VehicleId);
+                if (existedItem != null)
+                {
+                    existedItem.Quantity += input.Quantity;
+                    await _repository.UpdateAsync(existedItem);
+                    return ObjectMapper.Map<UserCart, UserCartResponse>(existedItem);
+                }
+                else
+                {
+                    return await base.CreateAsync(input);
+                }
             }
             catch (Exception)
             {
