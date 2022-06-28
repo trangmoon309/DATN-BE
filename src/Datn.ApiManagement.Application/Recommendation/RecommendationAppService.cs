@@ -6,27 +6,43 @@ using Volo.Abp.Application.Services;
 using Grpc.Core;
 using Grpc.Net.Client;
 using System.Threading.Tasks;
+using Datn.ApiManagement.Models;
+using Datn.ApiManagement.Repositories;
+using Volo.Abp.Linq;
+using System.Linq;
+using Datn.ApiManagement.Entities;
 
 namespace GrpcClient
 {
     public class RecommendationAppService : ApplicationService, IRecommendationAppService
     {
-        public RecommendationAppService()
+        private readonly IVehicleRepository _repository;
+        private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
+
+        public RecommendationAppService(IVehicleRepository repository, 
+            IAsyncQueryableExecuter asyncQueryableExecuter)
         {
+            _repository = repository;
+            _asyncQueryableExecuter = asyncQueryableExecuter;
         }
 
-        public string GetItemRecommended(Guid userId)
+        public async Task<List<VehicleResponse>> GetVehicleTypeDetailRecommended(Guid userId)
         {
             try
             {
+                var query = _repository.GetList();
+                var toList = await _asyncQueryableExecuter.ToListAsync(query);
+
                 var channel = GrpcChannel.ForAddress("http://localhost:50051");
                 var input = new UserRequest
                 { Id = userId.ToString() };
 
                 var client = new Recommendation.RecommendationClient(channel);
                 var reply = client.GetItemRecommended(input);
-                var result = reply.ItemIds.ToString();
-                return result;
+                var props = reply.ItemIds.ToList();
+
+                toList = toList.Where(x => x.VehicleProperties.Any(y => props.Contains(y.VehicleTypeDetailId.ToString()))).ToList();
+                return ObjectMapper.Map<List<Vehicle>,List< VehicleResponse >> (toList);
             }
             catch (Exception)
             {

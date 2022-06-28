@@ -21,9 +21,11 @@ namespace Datn.ApiManagement.Models
     {
         public Guid? Id { get; set; }
 
-        public Guid VehicleId { get; set; }
+        public Guid UserTransactionId { get; set; }
 
         public int Amount { get; set; }
+
+        public Guid VehicleId { get; set; }
 
         public int ReviewRideQuality { get; set; }
 

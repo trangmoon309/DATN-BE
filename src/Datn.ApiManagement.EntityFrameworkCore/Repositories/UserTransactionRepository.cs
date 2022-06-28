@@ -19,7 +19,7 @@ public class UserTransactionRepository : EfCoreRepository<IApiManagementDbContex
     {
         return GetQueryable()
             .Where(x => !x.IsDeleted)
-            .Include(x => x.UserTransactionVehicles).ThenInclude(x => x.Vehicle);
+            .Include(x => x.UserTransactionVehicles).ThenInclude(x => x.Vehicle).AsNoTracking();
     }
 
     public IQueryable<UserTransaction> GetById(Guid id)
@@ -41,7 +41,8 @@ public class UserTransactionRepository : EfCoreRepository<IApiManagementDbContex
         {
             // Update parent
             ///// Vehicle Properties
-            DbContext.Entry(existingParent).CurrentValues.SetValues(existingParent);
+            ///
+            DbContext.Entry(existingParent).CurrentValues.SetValues(userTransaction);
 
             // Delete children
             foreach (var existingChild in existingParent.UserTransactionVehicles.ToList())

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Datn.ApiManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace Datn.ApiManagement.Services
 {
     public interface IRecommendationAppService : IApplicationService
     {
-        string GetItemRecommended(Guid userId);
+        Task<List<VehicleResponse>> GetVehicleTypeDetailRecommended(Guid userId);
 
         string TrackChange();
     }

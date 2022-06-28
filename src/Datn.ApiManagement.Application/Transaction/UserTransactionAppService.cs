@@ -193,9 +193,6 @@ namespace Datn.ApiManagement.Services
                     {
                         throw new UserFriendlyException("Update Faild: The Vehicle " + vehicle.Name + " has not enough amount!");
                     }
-
-                    x.UserTransactionId = id;
-                    if (x.Id == null || x.Id == Guid.Empty) EntityHelper.TrySetId(x, GuidGenerator.Create);
                 });
 
                 await _repository.UpdateMasterAsync(entity);
