@@ -25,9 +25,9 @@ namespace Datn.ApiManagement.Controllers
 
         [HttpGet]
         [Route("get-props/by-user/{userId}")]
-        public async Task<IActionResult> MockVehicleTypes(Guid userId)
+        public async Task<IActionResult> MockVehicleTypes(Guid userId, SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest)
         {
-            var result = await _service.GetVehicleTypeDetailRecommended(userId);
+            var result = await _service.GetVehicleTypeDetailRecommended(userId, request, pageRequest);
             return Ok(result);
         }
 

@@ -11,6 +11,7 @@ using Datn.ApiManagement.Repositories;
 using Volo.Abp.Linq;
 using System.Linq;
 using Datn.ApiManagement.Entities;
+using Volo.Abp.Application.Dtos;
 
 namespace GrpcClient
 {
@@ -26,12 +27,11 @@ namespace GrpcClient
             _asyncQueryableExecuter = asyncQueryableExecuter;
         }
 
-        public async Task<List<VehicleResponse>> GetVehicleTypeDetailRecommended(Guid userId)
+        public async Task<PagedResultDto<VehicleResponse>> GetVehicleTypeDetailRecommended(Guid userId, SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest)
         {
             try
             {
                 var query = _repository.GetList();
-                var toList = await _asyncQueryableExecuter.ToListAsync(query);
 
                 var channel = GrpcChannel.ForAddress("http://localhost:50051");
                 var input = new UserRequest
@@ -41,8 +41,20 @@ namespace GrpcClient
                 var reply = client.GetItemRecommended(input);
                 var props = reply.ItemIds.ToList();
 
+                if (!request.KeyWord.IsNullOrEmpty()) query = _repository.SearchKeyWord(query, request.KeyWord);
+
+                if (request.VehicleTypeId.HasValue) query = query.Where(x => x.VehicleTypeId == request.VehicleTypeId.Value);
+
+                if (request.VehicleLineId.HasValue) query = query.Where(x => x.VehicleLineId == request.VehicleLineId.Value);
+
+                var toList = await _asyncQueryableExecuter.ToListAsync(query);
                 toList = toList.Where(x => x.VehicleProperties.Any(y => props.Contains(y.VehicleTypeDetailId.ToString()))).ToList();
-                return ObjectMapper.Map<List<Vehicle>,List< VehicleResponse >> (toList);
+
+                toList = toList.Skip(pageRequest.SkipCount).Take(pageRequest.MaxResultCount).ToList();
+                var items = ObjectMapper.Map<List<Vehicle>, List<VehicleResponse>>(toList);
+                var total = toList.Count();
+
+                return new PagedResultDto<VehicleResponse>(total, items);
             }
             catch (Exception)
             {
