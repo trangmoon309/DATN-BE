@@ -195,12 +195,12 @@ namespace Datn.ApiManagement.Services
                     }
                 });
 
-                await _repository.UpdateMasterAsync(entity);
+                var result = await _repository.UpdateMasterAsync(entity);
 
-                var result = ObjectMapper.Map<UserTransaction, UserTransactionResponse>(entity);
-                result.User = userReponses.Find(y => y.Id == result.UserId);
+                var response = ObjectMapper.Map<UserTransaction, UserTransactionResponse>(result);
+                response.User = userReponses.Find(y => y.Id == result.UserId);
 
-                return result;
+                return response;
             }
             catch (Exception)
             {
