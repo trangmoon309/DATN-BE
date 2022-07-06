@@ -18,13 +18,16 @@ namespace GrpcClient
     public class RecommendationAppService : ApplicationService, IRecommendationAppService
     {
         private readonly IVehicleRepository _repository;
+        private readonly IUserTransactionRepository _transactionRepository;
         private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
 
-        public RecommendationAppService(IVehicleRepository repository, 
-            IAsyncQueryableExecuter asyncQueryableExecuter)
+        public RecommendationAppService(IVehicleRepository repository,
+            IAsyncQueryableExecuter asyncQueryableExecuter, 
+            IUserTransactionRepository transactionRepository)
         {
             _repository = repository;
             _asyncQueryableExecuter = asyncQueryableExecuter;
+            _transactionRepository = transactionRepository;
         }
 
         public async Task<PagedResultDto<VehicleResponse>> GetVehicleTypeDetailRecommended(Guid userId, SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest)
@@ -32,6 +35,11 @@ namespace GrpcClient
             try
             {
                 var query = _repository.GetList();
+                var transactions = await _transactionRepository.GetListAsync();
+                if(!transactions.Any(x => x.UserId == userId))
+                {
+                    return new PagedResultDto<VehicleResponse>(0, new List<VehicleResponse>());
+                }
 
                 var channel = GrpcChannel.ForAddress("http://localhost:50051");
                 var input = new UserRequest
