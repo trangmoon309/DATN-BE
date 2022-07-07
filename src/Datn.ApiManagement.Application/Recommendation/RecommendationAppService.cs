@@ -57,10 +57,10 @@ namespace GrpcClient
 
                 var toList = await _asyncQueryableExecuter.ToListAsync(query);
                 toList = toList.Where(x => x.VehicleProperties.Any(y => props.Contains(y.VehicleTypeDetailId.ToString()))).ToList();
+                var total = toList.Count();
 
                 toList = toList.Skip(pageRequest.SkipCount).Take(pageRequest.MaxResultCount).ToList();
                 var items = ObjectMapper.Map<List<Vehicle>, List<VehicleResponse>>(toList);
-                var total = toList.Count();
 
                 return new PagedResultDto<VehicleResponse>(total, items);
             }
