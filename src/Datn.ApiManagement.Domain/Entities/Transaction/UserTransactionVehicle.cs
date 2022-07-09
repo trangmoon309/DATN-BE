@@ -31,5 +31,7 @@ namespace Datn.ApiManagement.Entities
         public List<UserTransactionVehicle> UserTransactionVehicles { get; set; } = new List<UserTransactionVehicle>();
 
         public bool IsVehicleRanOutOfAmount { get;set; }
+
+        public int UsingAmount { get; set; }
     }
 }

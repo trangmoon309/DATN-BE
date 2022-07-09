@@ -19,6 +19,8 @@ namespace Datn.ApiManagement.Models
 
         public int Amount { get; set; }
 
+        public int RemainAmount { get; set; }
+
         public double KilometerTravel { get; set; }
 
         public string LicensePlate { get; set; }

@@ -23,5 +23,7 @@ namespace Datn.ApiManagement.Services
         Task<List<VehicleImageResponse>> CreatVehicleImagesAsync(Guid vehicleId, List<IFormFile> images);
 
         Task<VehicleResponse> UpdatesAsync(Guid id, UpdateVehicleRequest input);
+
+        Task<VehicleResponse> GetVehicleByDateAsync(Guid id, DateTime date);
     }
 }

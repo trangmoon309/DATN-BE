@@ -40,6 +40,15 @@ namespace Datn.ApiManagement.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("by-date/{id}")]
+        public async Task<IActionResult> GetItemByDateAsync(Guid id, DateTime date)
+        {
+            var result = await _service.GetVehicleByDateAsync(id, date);
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateAsync(VehicleRequest request)
         {

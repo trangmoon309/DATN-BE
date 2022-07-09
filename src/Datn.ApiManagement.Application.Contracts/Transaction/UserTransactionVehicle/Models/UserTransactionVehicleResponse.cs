@@ -19,6 +19,8 @@ namespace Datn.ApiManagement.Models
 
         public string ReviewNote { get; set; }
 
+        public UserResponse User { get; set; }
+
         public VehicleResponse Vehicle { get; set; }
     }
 }

@@ -6,6 +6,8 @@ namespace Datn.ApiManagement.Models
 {
     public class SearchVehicleRequest
     {
+        public DateTime? SearchDate { get; set; }
+
         public Guid? VehicleTypeId { get; set; }
 
         public Guid? VehicleLineId { get; set; }

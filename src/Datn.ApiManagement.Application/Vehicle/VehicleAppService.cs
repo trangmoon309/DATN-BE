@@ -50,28 +50,47 @@ namespace Datn.ApiManagement.Services
             {
                 var query = _repository.GetList();
                 var transactionList = await _asyncQueryableExecuter.ToListAsync(_transactionRepository.GetList());
-                var usingVehicleList = transactionList
-                .Where(x => (x.RentalStatus == Enums.Enums.RentalStatus.USING) || (x.RentalStatus == Enums.Enums.RentalStatus.WAITING))
-                .SelectMany(x => x.UserTransactionVehicles).ToList();
+                var usingVehicleList = transactionList.Where(x => x.RentalStatus < Enums.Enums.RentalStatus.RETURNED );
 
-                var runOutVehicles = usingVehicleList.GroupBy(x => x.VehicleId, (vehicleId, list) => new
+                if (request.SearchDate.HasValue)
+                {
+                    usingVehicleList = usingVehicleList.Where(x => x.ReceivedVehicleDate.Date <= request.SearchDate.Value.Date &&
+                                                                   x.ReturnedVehicleDate.Value.Date >= request.SearchDate.Value.Date);
+                }
+
+                var runOutVehicles = usingVehicleList.SelectMany(x => x.UserTransactionVehicles).GroupBy(x => x.VehicleId, (vehicleId, list) => new
                 UserTransactionVehicleGroupByVehicle
                 {
                     VehicleId = vehicleId,
                     UserTransactionVehicles = list.ToList(),
-                    IsVehicleRanOutOfAmount = list.Sum(x => x.Amount) >= list.FirstOrDefault().Vehicle.Amount
-                }).ToList().Select(x => x.VehicleId);
+                    IsVehicleRanOutOfAmount = list.Sum(x => x.Amount) >= list.FirstOrDefault().Vehicle.Amount,
+                    UsingAmount = list.Sum(x => x.Amount)
+                }).ToList();
 
-                query = query.Where(x => !runOutVehicles.Contains(x.Id)).OrderByDescending(x => x.CreationTime); 
+                var runOutVehicleIds = runOutVehicles.Where(y => y.IsVehicleRanOutOfAmount == true).Select(y => y.VehicleId);
+
+                query = query.Where(x => !runOutVehicleIds.Contains(x.Id)).OrderByDescending(x => x.CreationTime);
 
                 if (!request.KeyWord.IsNullOrEmpty()) query = _repository.SearchKeyWord(query, request.KeyWord);
 
-                if(request.VehicleTypeId.HasValue) query = query.Where(x => x.VehicleTypeId == request.VehicleTypeId.Value);
+                if (request.VehicleTypeId.HasValue) query = query.Where(x => x.VehicleTypeId == request.VehicleTypeId.Value);
 
                 if (request.VehicleLineId.HasValue) query = query.Where(x => x.VehicleLineId == request.VehicleLineId.Value);
 
                 var toList = await _asyncQueryableExecuter.ToListAsync(query.Skip(pageRequest.SkipCount).Take(pageRequest.MaxResultCount));
                 var items = ObjectMapper.Map<List<Vehicle>, List<VehicleResponse>>(toList);
+                items.ForEach(x =>
+                {
+                    var runOut = runOutVehicles.FirstOrDefault(y => y.VehicleId == x.Id);
+                    if (runOut != null)
+                    {
+                        x.RemainAmount = x.Amount - runOut.UsingAmount;
+                    }
+                    else
+                    {
+                        x.RemainAmount = x.Amount;
+                    }
+                });
                 var total = query.Count();
 
                 return new PagedResultDto<VehicleResponse>(total, items);
@@ -160,6 +179,25 @@ namespace Datn.ApiManagement.Services
             var query = _repository.GetById(id);
             var item = await _asyncQueryableExecuter.FirstOrDefaultAsync(query);
             return ObjectMapper.Map<Vehicle, VehicleResponse>(item);
+        }
+
+        public async Task<VehicleResponse> GetVehicleByDateAsync(Guid id, DateTime date)
+        {
+            var query = _repository.GetById(id);
+            var item = await _asyncQueryableExecuter.FirstOrDefaultAsync(query);
+            var transactionList = await _asyncQueryableExecuter.ToListAsync(_transactionRepository.GetList());
+            var usingVehicleList = transactionList.Where(x => x.RentalStatus < Enums.Enums.RentalStatus.RETURNED).ToList();
+
+            usingVehicleList = usingVehicleList.Where(x => x.ReceivedVehicleDate.Date <= date.Date &&
+                                                               x.ReturnedVehicleDate.Value.Date >= date.Date).ToList();
+
+            var runOutVehicles = usingVehicleList.SelectMany(x => x.UserTransactionVehicles).Where(x => x.VehicleId == id).ToList();
+            var usingAmount = runOutVehicles.Sum(x => x.Amount);
+
+            var result = ObjectMapper.Map<Vehicle, VehicleResponse>(item);
+            result.RemainAmount = result.Amount - usingAmount;
+
+            return result;
         }
     }
 }
