@@ -37,8 +37,10 @@ namespace Datn.ApiManagement.Repositories
         {
             return GetQueryable()
                 .Where(x => !x.IsDeleted && x.Id == id)
-                .Include(x => x.VehicleProperties)
+                .Include(x => x.VehicleProperties).ThenInclude(x => x.VehicleTypeDetail)
                 .Include(x => x.VehicleImages)
+                .Include(x => x.VehicleLine)
+                .Include(x => x.VehicleType)
                 .AsNoTracking();
         }
 
@@ -53,8 +55,10 @@ namespace Datn.ApiManagement.Repositories
         {
             var existingParent = await DbContext.Vehicles
                 .Where(p => p.Id == vehicle.Id)
-                .Include(p => p.VehicleProperties)
+                .Include(p => p.VehicleProperties).ThenInclude(x => x.VehicleTypeDetail)
                 .Include(p => p.VehicleImages)
+                .Include(x => x.VehicleLine)
+                .Include(x => x.VehicleType)
                 .FirstOrDefaultAsync();
 
             if (existingParent != null)

@@ -13,6 +13,8 @@ namespace Datn.ApiManagement.Entities
 
         public int Quantity { get; set; }
 
+        public DateTime RentDate { get; set; }
+
         public Vehicle Vehicle { get; set; }
     }
 }

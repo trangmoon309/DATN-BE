@@ -15,7 +15,7 @@ namespace Datn.ApiManagement.Services
             UserCartRequest,
             UpdateUserCartRequest>
     {
-        Task<PagedResultDto<UserCartResponse>> GetByUserPagedListAsync(Guid userId, PagedAndSortedResultRequestDto pageRequest);
+        Task<PagedResultDto<UserCartResponse>> GetByUserPagedListAsync(Guid userId, DateTime? rentDate, PagedAndSortedResultRequestDto pageRequest);
 
         Task<List<UserCartResponse>> UpdateMultipleByUserId(Guid userId, List<UpdateUserCartRequest> requests);
     }

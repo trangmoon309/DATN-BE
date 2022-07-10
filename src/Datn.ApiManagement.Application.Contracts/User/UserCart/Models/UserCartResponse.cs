@@ -15,6 +15,8 @@ namespace Datn.ApiManagement.Models
 
         public bool IsRanOut { get; set; }
 
+        public DateTime RentDate { get; set; }
+
         public VehicleResponse Vehicle { get; set; }
     }
 }

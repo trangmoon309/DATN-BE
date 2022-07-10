@@ -40,7 +40,7 @@ namespace Datn.ApiManagement.Services
             _vehicleRepository = vehicleRepository;
         }
 
-        public async Task<PagedResultDto<UserCartResponse>> GetByUserPagedListAsync(Guid userId, PagedAndSortedResultRequestDto pageRequest)
+        public async Task<PagedResultDto<UserCartResponse>> GetByUserPagedListAsync(Guid userId, DateTime? rentDate, PagedAndSortedResultRequestDto pageRequest)
         {
             try
             {
@@ -50,18 +50,25 @@ namespace Datn.ApiManagement.Services
                 .Where(x => (x.RentalStatus < Enums.Enums.RentalStatus.RETURNED))
                 .SelectMany(x => x.UserTransactionVehicles).ToList();
 
-                var runOutVehicles = usingVehicleList.GroupBy(x => x.VehicleId, (vehicleId, list) => new
-                UserTransactionVehicleGroupByVehicle
+                query = query.OrderByDescending(x => x.CreationTime);
+
+                query = query.Where(x => x.UserId == userId);
+
+                if (rentDate.HasValue)
+                {
+                    query = query.Where(x => x.RentDate.Date == rentDate.Value.Date);
+                    usingVehicleList = usingVehicleList.Where(x => x.UserTransaction.ReceivedVehicleDate.Date <= rentDate.Value.Date &&
+                                                                   x.UserTransaction.ReturnedVehicleDate.Value.Date >= rentDate.Value.Date)
+                                                       .ToList();
+                }
+
+                var runOutVehicles = usingVehicleList.GroupBy(x => x.VehicleId, (vehicleId, list) => new UserTransactionVehicleGroupByVehicle
                 {
                     VehicleId = vehicleId,
                     UserTransactionVehicles = list.ToList(),
                     IsVehicleRanOutOfAmount = list.Sum(x => x.Amount) >= list.FirstOrDefault().Vehicle.Amount,
                     UsingAmount = list.Sum(x => x.Amount)
                 }).Where(x => x.IsVehicleRanOutOfAmount == true).ToList();
-
-                query = query.OrderByDescending(x => x.CreationTime);
-
-                query = query.Where(x => x.UserId == userId);
 
                 var toList = await _asyncQueryableExecuter.ToListAsync(query.Skip(pageRequest.SkipCount).Take(pageRequest.MaxResultCount));
                 var items = ObjectMapper.Map<List<UserCart>, List<UserCartResponse>>(toList);

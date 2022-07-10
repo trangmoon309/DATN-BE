@@ -23,9 +23,9 @@ namespace Datn.ApiManagement.Controllers
 
         [HttpGet]
         [Route("by-user/{userId}")]
-        public async Task<IActionResult> GetListAsync(Guid userId, PagedAndSortedResultRequestDto pageRequest)
+        public async Task<IActionResult> GetListAsync(Guid userId, DateTime? rentDate, PagedAndSortedResultRequestDto pageRequest)
         {
-            var result = await _service.GetByUserPagedListAsync(userId, pageRequest);
+            var result = await _service.GetByUserPagedListAsync(userId, rentDate, pageRequest);
 
             return Ok(result);
         }

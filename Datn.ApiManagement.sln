@@ -47,8 +47,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datn.ApiManagement.Installe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcClientConsole", "GrpcClientConsole\GrpcClientConsole.csproj", "{0DFE4741-44B8-48A0-BCC4-36BDDE81270C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcClientLib", "GrpcClientLib\GrpcClientLib.csproj", "{27609726-DD18-4797-9E6F-DDB820146FF0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,10 +129,6 @@ Global
 		{0DFE4741-44B8-48A0-BCC4-36BDDE81270C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DFE4741-44B8-48A0-BCC4-36BDDE81270C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DFE4741-44B8-48A0-BCC4-36BDDE81270C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27609726-DD18-4797-9E6F-DDB820146FF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27609726-DD18-4797-9E6F-DDB820146FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27609726-DD18-4797-9E6F-DDB820146FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27609726-DD18-4797-9E6F-DDB820146FF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,7 +153,6 @@ Global
 		{F6AC8D4A-EDD7-4514-8E8A-5BCB019864DB} = {E400416D-2895-4512-9D17-90681EEC7E0A}
 		{BE39FD00-745B-4049-8161-FC129817CBE4} = {649A3FFA-182F-4E56-9717-E6A9A2BEC545}
 		{0DFE4741-44B8-48A0-BCC4-36BDDE81270C} = {649A3FFA-182F-4E56-9717-E6A9A2BEC545}
-		{27609726-DD18-4797-9E6F-DDB820146FF0} = {649A3FFA-182F-4E56-9717-E6A9A2BEC545}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4324B3B4-B60B-4E3C-91D8-59576B4E26DD}
