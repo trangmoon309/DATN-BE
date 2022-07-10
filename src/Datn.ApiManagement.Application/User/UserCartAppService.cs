@@ -47,7 +47,7 @@ namespace Datn.ApiManagement.Services
                 var query = _repository.GetList();
                 var transactionList = await _asyncQueryableExecuter.ToListAsync(_transactionRepository.GetList());
                 var usingVehicleList = transactionList
-                .Where(x => (x.RentalStatus == Enums.Enums.RentalStatus.USING) || (x.RentalStatus == Enums.Enums.RentalStatus.WAITING))
+                .Where(x => (x.RentalStatus < Enums.Enums.RentalStatus.RETURNED))
                 .SelectMany(x => x.UserTransactionVehicles).ToList();
 
                 var runOutVehicles = usingVehicleList.GroupBy(x => x.VehicleId, (vehicleId, list) => new
@@ -55,8 +55,9 @@ namespace Datn.ApiManagement.Services
                 {
                     VehicleId = vehicleId,
                     UserTransactionVehicles = list.ToList(),
-                    IsVehicleRanOutOfAmount = list.Sum(x => x.Amount) >= list.FirstOrDefault().Vehicle.Amount
-                }).ToList().Select(x => x.VehicleId);
+                    IsVehicleRanOutOfAmount = list.Sum(x => x.Amount) >= list.FirstOrDefault().Vehicle.Amount,
+                    UsingAmount = list.Sum(x => x.Amount)
+                }).Where(x => x.IsVehicleRanOutOfAmount == true).ToList();
 
                 query = query.OrderByDescending(x => x.CreationTime);
 
@@ -66,7 +67,7 @@ namespace Datn.ApiManagement.Services
                 var items = ObjectMapper.Map<List<UserCart>, List<UserCartResponse>>(toList);
                 items.ForEach(x =>
                 {
-                    if (runOutVehicles.Contains(x.VehicleId)) x.IsRanOut = true;
+                    if (runOutVehicles.Select(x => x.VehicleId).Contains(x.VehicleId)) x.IsRanOut = true;
                     else x.IsRanOut = false;
                 });
 
@@ -87,7 +88,7 @@ namespace Datn.ApiManagement.Services
                 var query = _repository.GetListByUserId(userId);
                 var transactionList = await _asyncQueryableExecuter.ToListAsync(_transactionRepository.GetList());
                 var usingVehicleList = transactionList
-                .Where(x => (x.RentalStatus == Enums.Enums.RentalStatus.USING) || (x.RentalStatus == Enums.Enums.RentalStatus.WAITING))
+                .Where(x => (x.RentalStatus < Enums.Enums.RentalStatus.RETURNED))
                 .SelectMany(x => x.UserTransactionVehicles).ToList();
                 var vehicleList = await _vehicleRepository.GetListAsync();
 

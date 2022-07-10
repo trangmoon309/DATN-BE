@@ -24,7 +24,7 @@ namespace Datn.ApiManagement.Entities
         public UserTransaction UserTransaction { get; set; }
     }
 
-    public class UserTransactionVehicleGroupByVehicle : FullAuditedAggregateRoot<Guid>
+    public class UserTransactionVehicleGroupByVehicle
     {
         public Guid VehicleId { get; set; }
 

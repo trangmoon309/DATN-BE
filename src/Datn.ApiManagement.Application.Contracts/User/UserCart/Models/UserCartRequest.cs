@@ -22,5 +22,7 @@ namespace Datn.ApiManagement.Models
         public Guid VehicleId { get; set; }
 
         public int Quantity { get; set; }
+
+        public bool IsRanOut { get; set; }
     }
 }
