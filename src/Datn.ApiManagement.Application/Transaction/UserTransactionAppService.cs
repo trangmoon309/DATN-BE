@@ -60,6 +60,11 @@ namespace Datn.ApiManagement.Services
                     query = query.Where(x => x.UserId == request.UserId.Value);
                 }
 
+                if (request.SearchDate.HasValue)
+                {
+                    query = query.Where(x => x.CreationTime.Date == request.SearchDate.Value.Date );
+                }
+
                 if (!request.KeyWord.IsNullOrEmpty())
                 {
                     query = query.Where(x => userReponses.Select(y => y.Id).Contains(x.UserId));

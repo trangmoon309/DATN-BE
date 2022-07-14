@@ -56,7 +56,7 @@ namespace GrpcClient
                 if (request.VehicleLineId.HasValue) query = query.Where(x => x.VehicleLineId == request.VehicleLineId.Value);
 
                 var toList = await _asyncQueryableExecuter.ToListAsync(query);
-                toList = toList.Where(x => x.VehicleProperties.Any(y => props.Contains(y.VehicleTypeDetailId.ToString()))).ToList();
+                toList = toList.Where(x => props.Contains(x.Id.ToString())).ToList();
                 var total = toList.Count();
 
                 toList = toList.Skip(pageRequest.SkipCount).Take(pageRequest.MaxResultCount).ToList();

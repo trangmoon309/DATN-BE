@@ -12,5 +12,6 @@ namespace Datn.ApiManagement.Models
         public Guid VehicleId { get; set; }
 
         public VehicleResponse Vehicle { get; set; }
+
     }
 }

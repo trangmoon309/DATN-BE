@@ -50,7 +50,8 @@ public class ApiManagementApplicationAutoMapperProfile : Profile
         CreateMap<UserTransactionRequest, UserTransaction>(MemberList.None);
         CreateMap<UpdateUserTransactionRequest, UserTransaction>(MemberList.None);
 
-        CreateMap<UserTransactionVehicle, UserTransactionVehicleResponse>(MemberList.None);
+        CreateMap<UserTransactionVehicle, UserTransactionVehicleResponse>(MemberList.None)
+            .ForMember(x => x.Transaction, y => y.Ignore());
         CreateMap<UserTransactionVehicleRequest, UserTransactionVehicle>(MemberList.None);
         CreateMap<UpdateUserTransactionVehicleRequest, UserTransactionVehicle>(MemberList.None);
 

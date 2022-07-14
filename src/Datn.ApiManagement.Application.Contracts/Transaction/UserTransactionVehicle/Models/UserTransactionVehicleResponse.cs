@@ -22,5 +22,7 @@ namespace Datn.ApiManagement.Models
         public UserResponse User { get; set; }
 
         public VehicleResponse Vehicle { get; set; }
+
+        public UserTransactionResponse Transaction { get; set; }
     }
 }

@@ -12,6 +12,10 @@ namespace Datn.ApiManagement.Models
 
         public Guid? VehicleLineId { get; set; }
 
+        public double? ModelYear { get; set; }
+
+        public double? RentalPrice { get; set; }
+
         public string KeyWord { get; set; } 
     }
 }

@@ -24,7 +24,7 @@ namespace Datn.ApiManagement.Models
 
         public int Amount { get; set; }
 
-        public double KilometerTravel { get; set; }
+        public double ModelYear { get; set; }
 
         public string LicensePlate { get; set; }
 

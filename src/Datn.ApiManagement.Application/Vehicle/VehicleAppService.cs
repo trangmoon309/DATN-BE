@@ -27,6 +27,8 @@ namespace Datn.ApiManagement.Services
             UpdateVehicleRequest>, IVehicleAppService
     {
         private readonly IVehicleRepository _repository;
+        private readonly IVehicleLineRepository _lineRepository;
+        private readonly IVehicleTypeRepository _typeRepository;
         private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
         private readonly IVehicleImageAppService _vehiceImageAppService;
         private readonly IVehicleImageRepository _vehiceImageRepository;
@@ -34,14 +36,18 @@ namespace Datn.ApiManagement.Services
         public VehicleAppService(IVehicleRepository repository,
             IAsyncQueryableExecuter asyncQueryableExecuter,
             IVehicleImageAppService vehiceImageAppService,
-            IVehicleImageRepository vehiceImageRepository, 
-            IUserTransactionRepository transactionRepository) : base(repository)
+            IVehicleImageRepository vehiceImageRepository,
+            IUserTransactionRepository transactionRepository, 
+            IVehicleLineRepository lineRepository, 
+            IVehicleTypeRepository typeRepository) : base(repository)
         {
             _repository = repository;
             _asyncQueryableExecuter = asyncQueryableExecuter;
             _vehiceImageAppService = vehiceImageAppService;
             _vehiceImageRepository = vehiceImageRepository;
             _transactionRepository = transactionRepository;
+            _lineRepository = lineRepository;
+            _typeRepository = typeRepository;
         }
 
         public async Task<PagedResultDto<VehicleResponse>> GetListByCondition(SearchVehicleRequest request, PagedAndSortedResultRequestDto pageRequest)
@@ -51,6 +57,22 @@ namespace Datn.ApiManagement.Services
                 var query = _repository.GetList();
                 var transactionList = await _asyncQueryableExecuter.ToListAsync(_transactionRepository.GetList());
                 var usingVehicleList = transactionList.Where(x => x.RentalStatus < Enums.Enums.RentalStatus.RETURNED );
+
+                if (!request.KeyWord.IsNullOrEmpty()) query = _repository.SearchKeyWord(query, request.KeyWord);
+
+                if (request.VehicleTypeId.HasValue) query = query.Where(x => x.VehicleTypeId == request.VehicleTypeId.Value);
+
+                if (request.VehicleLineId.HasValue) query = query.Where(x => x.VehicleLineId == request.VehicleLineId.Value);
+
+                if (request.RentalPrice.HasValue) query = query.Where(x => x.RentalPrice <= request.RentalPrice.Value);
+
+                if (request.ModelYear.HasValue) query = query.Where(x => x.ModelYear == request.ModelYear.Value);
+
+                if (request.SearchDate.HasValue)
+                {
+                    usingVehicleList = usingVehicleList.Where(x => x.ReceivedVehicleDate.Date <= request.SearchDate.Value.Date &&
+                                                                   x.ReturnedVehicleDate.Value.Date >= request.SearchDate.Value.Date);
+                }
 
                 if (request.SearchDate.HasValue)
                 {
@@ -70,12 +92,6 @@ namespace Datn.ApiManagement.Services
                 var runOutVehicleIds = runOutVehicles.Where(y => y.IsVehicleRanOutOfAmount == true).Select(y => y.VehicleId);
 
                 query = query.Where(x => !runOutVehicleIds.Contains(x.Id)).OrderByDescending(x => x.CreationTime);
-
-                if (!request.KeyWord.IsNullOrEmpty()) query = _repository.SearchKeyWord(query, request.KeyWord);
-
-                if (request.VehicleTypeId.HasValue) query = query.Where(x => x.VehicleTypeId == request.VehicleTypeId.Value);
-
-                if (request.VehicleLineId.HasValue) query = query.Where(x => x.VehicleLineId == request.VehicleLineId.Value);
 
                 var toList = await _asyncQueryableExecuter.ToListAsync(query.Skip(pageRequest.SkipCount).Take(pageRequest.MaxResultCount));
                 var items = ObjectMapper.Map<List<Vehicle>, List<VehicleResponse>>(toList);
@@ -105,6 +121,9 @@ namespace Datn.ApiManagement.Services
         {
             try
             {
+                var line = await _asyncQueryableExecuter.FirstOrDefaultAsync(_lineRepository.GetById(input.VehicleLineId));
+                var type = await _asyncQueryableExecuter.FirstOrDefaultAsync(_typeRepository.GetById(input.VehicleTypeId));
+                var properties = type.VehicleTypeDetails.Where(x => input.VehicleProperties.Select(y => y.VehicleTypeDetailId).Contains(x.Id)).ToList();
 
                 var query = _repository.GetList();
                 var toList = await _asyncQueryableExecuter.ToListAsync(query);
@@ -121,6 +140,14 @@ namespace Datn.ApiManagement.Services
 
                 await _repository.InsertAsync(entity);
                 var result = ObjectMapper.Map<Vehicle, VehicleResponse>(entity);
+                result.VehicleLine = ObjectMapper.Map<VehicleLine, VehicleLineResponse>(line);
+                result.VehicleType = ObjectMapper.Map<VehicleType, VehicleTypeResponse>(type);
+                result.VehicleProperties = new List<VehiclePropertyResponse>();
+                properties.ForEach(x => result.VehicleProperties.Add(new VehiclePropertyResponse()
+                {
+                    VehicleTypeDetail = ObjectMapper.Map<VehicleTypeDetail, VehicleTypeDetailResponse>(x)
+                }));
+
                 return result;
             }
             catch (Exception)
@@ -158,6 +185,9 @@ namespace Datn.ApiManagement.Services
 
         public async Task<VehicleResponse> UpdatesAsync(Guid id, UpdateVehicleRequest input)
         {
+            var line = await _asyncQueryableExecuter.FirstOrDefaultAsync(_lineRepository.GetById(input.VehicleLineId));
+            var type = await _asyncQueryableExecuter.FirstOrDefaultAsync(_typeRepository.GetById(input.VehicleTypeId));
+            var properties = type.VehicleTypeDetails.Where(x => input.VehicleProperties.Select(y => y.VehicleTypeDetailId).Contains(x.Id)).ToList();
             var entity = await _asyncQueryableExecuter.FirstOrDefaultAsync(_repository.GetById(id));
             MapToEntity(input, entity);
 
@@ -170,8 +200,16 @@ namespace Datn.ApiManagement.Services
             entity.VehicleImages.Clear();
 
             await _repository.UpdateMasterAsync(entity);
+            var result = ObjectMapper.Map<Vehicle, VehicleResponse>(entity);
+            result.VehicleLine = ObjectMapper.Map<VehicleLine, VehicleLineResponse>(line);
+            result.VehicleType = ObjectMapper.Map<VehicleType, VehicleTypeResponse>(type);
+            result.VehicleProperties = new List<VehiclePropertyResponse>();
+            properties.ForEach(x => result.VehicleProperties.Add(new VehiclePropertyResponse()
+            {
+                VehicleTypeDetail = ObjectMapper.Map<VehicleTypeDetail, VehicleTypeDetailResponse>(x)
+            }));
 
-            return ObjectMapper.Map<Vehicle, VehicleResponse>(entity);
+            return result;
         }
 
         public override async Task<VehicleResponse> GetAsync(Guid id)

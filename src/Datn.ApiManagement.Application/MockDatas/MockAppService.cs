@@ -131,7 +131,7 @@ namespace Datn.ApiManagement.MockDatas
                             entity.VehicleTypeId = type.Id;
                             entity.VehicleLineId = line.Id;
                             entity.Amount = 10;
-                            entity.KilometerTravel = 500;
+                            entity.ModelYear = 2020;
                             entity.RentalPrice = rentalPrice;
                             entity.DepositPrice = depositPrice;
                             entity.LicensePlate = String.Empty;
